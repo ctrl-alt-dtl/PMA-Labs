@@ -22,7 +22,7 @@ Using **Detect It Easy (v3.01)** and going to the strings tab there was a URL sh
 
 ![3-1: Debug with Procmon](Images/3-1-2-Procmon.png)
 
-Unfortunately, trying to run this executable in Win 7 caused it to fail. It looks like *UAC* causes it to fail, even if I turn off UAC or set the compatiblity mode to WinXP SP3. **Process Monitor** and **Process Exporer** show the .exe creating the **Lab03-01.exe** but it fails as seen in the image above.
+Unfortunately, trying to run this executable in Win 7 caused it to fail. It looks like **UAC** causes it to fail, even if I turn off UAC or set the compatiblity mode to WinXP SP3. **Process Monitor** and **Process Exporer** show the .exe creating the **Lab03-01.exe** but it fails as seen in the image above.
 
 ![3-1: Debug with Ghidra](Images/3-1-2-Ghidra.png)    
 

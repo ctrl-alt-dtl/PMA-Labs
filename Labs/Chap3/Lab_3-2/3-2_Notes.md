@@ -8,4 +8,6 @@
     3. How can you find the process under which this malware is running?
     4. Which filter could you set in order to use procmon to glean information?
     5. What are the malware's host-based indicators?
-    6. Are there any useful network-based signatures for this malware?  
+    6. Are there any useful network-based signatures for this malware?
+
+### Answers:  
