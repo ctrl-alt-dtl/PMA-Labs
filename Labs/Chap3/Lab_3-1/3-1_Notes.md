@@ -28,4 +28,4 @@ Unfortunately, trying to run this executable in Win 7 caused it to fail. It look
 
 Now with the URL: Had this worked, I would have expected the malware to ping out to *www.practicalmalwareanalysis.com* and would have been looking for in either in a **Wireshark or CAPA** capture. I want to dig in deeper; however, pulling up **Ghidra** to RE the malware was unsuccessful. 
 
-### *Womp womp...*
+### *Womp womp...* UAC for the fail...
