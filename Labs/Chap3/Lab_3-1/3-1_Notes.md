@@ -26,6 +26,6 @@ Unfortunately, trying to run this executable in Win 7 caused it to fail. It look
 
 ![3-1: Debug with Ghidra](Images/3-1-2-Ghidra.png)    
 
-Now with the URL: Had this worked, I would have expected the malware to ping out to *www.practicalmalwareanalysis.com* and would have been looking for in either in a **Wireshark or CAPA** capture. I want to dig in deeper; however, pulling up **Ghidra** to RE the malware was unsuccessful. 
+Now with the URL: Had this worked, I would have expected the malware to ping out to *www.practicalmalwareanalysis.com* and would have been looking for in either in a **Wireshark or CAPA** capture. I went to dig in deeper; however, pulling up **Ghidra** to RE the malware was unsuccessful. 
 
 ### *Womp womp...* UAC for the fail...
