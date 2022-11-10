@@ -19,7 +19,7 @@ Tools Used:
     - EDWK for Windows 10, Version 1703 (https://learn.microsoft.com/en-us/legal/windows/hardware/enterprise-wdk-license-2015)
     - Windows 7 WDK (https://www.microsoft.com/download/confirmation.aspx?id=11800)
     - VirtualKD-3.0 (https://sysprogs.com/legacy/virtualkd/)
-    - Follow instructions in the [SystemSetupGuide.pdf]
+    - Follow instructions in the [SystemSetupGuide](SystemSetupGuide.pdf)
     
 
 Setup: 
