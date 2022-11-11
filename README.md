@@ -2,6 +2,7 @@
  Practical Malware Analysis Labs & Notes
 
 Download Labs From: https://github.com/mikesiko/PracticalMalwareAnalysis-Labs
+
 Book Link: https://www.amazon.com/Practical-Malware-Analysis-Hands-Dissecting/dp/1593272901
 
 Tools Used:
@@ -27,6 +28,6 @@ Setup:
     1. Install Windows
     2. Snapshot VM
     3. Install FlareVM
-    4. Install Additional Software
+    4. Install Additional Software (Including the WDK)
     6. Test VM
     7. Snapshot VM
