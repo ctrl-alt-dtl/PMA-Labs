@@ -1,6 +1,6 @@
 # Lab 3-2 (Unfortunately Also Broken)
 
-## Analyze the malware found in the file *Lab03-2.dll* using basic dynamic analysis tools.
+## Analyze the malware found in the file *Lab03-02.dll* using basic dynamic analysis tools.
 
 ### Questions:
     1. How can you get this malware to install itself?
@@ -35,7 +35,7 @@ Again, see see the same thing of *NAME NOT FOUND* and *FILE LOCKED WITH ONLY REA
 
 ![3-2: IDA Look](Images/3-2-6.png)
 
-In IDA, I clicked on the *Install* export function and was immediately sent to this function. It is interesting that I see **Svchost** (aka Services) and **IPRIP** which a basic search returned this (https://www.windows-security.org/windows-service/rip-listener). Oh and **netsvcs** too, so this is means **network**... 
+In IDA, I clicked on the *Install* export function and was immediately sent to this function. It is interesting that I see **Svchost** (aka Services) and **IPRIP** which a basic search returned this (https://www.windows-security.org/windows-service/rip-listener). Note: *ServiceMain" in the DLL also means service. Oh and **netsvcs** too, so this is means **network**... 
 
 ![3-2: Strings](Images/3-2-7.png)
 
