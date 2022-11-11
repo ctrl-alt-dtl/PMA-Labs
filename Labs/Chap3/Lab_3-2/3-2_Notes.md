@@ -43,7 +43,7 @@ So we have network requirement and looking at the strings I see interesting URLs
 
 ![3-2: Imports](Images/3-2-9.png)
 
-Looking back at the Imports section shows some interesting calls with **WININET** and **WS2_32** (aka Windows Network DLLs).
+Looking back at the Imports section shows some interesting calls with **WININET** and **WS2_32** (aka Windows Network DLLs). There are several Internet and HTTP calls as well as some useful information in the imports section with calls like *gethostname*, *_strnicp* (it's above the screenshot crop), *Sleep*, and *WaitForSignleObject*. I also see an *OutputDebugStringA* which may be helpful in seeing where this DLL fails by using **DbgView* from SysInternals.
 Going a little deeper into IDA I see this:
 
 ![3-2: IDA Registry Keys](Images/3-2-8.png)
@@ -52,4 +52,28 @@ This is just looking at different approaches to fitting the puzzle piece in the 
 
 So we found out the indicators and signatures, both host and network. Unfortunately it did not run as expected. **Why?** My first guess is the DLL cannot find/create the registry keys it needs to create the service, so it fails hard.
 
-*** Live Debugging:
+### About Services:
+    
+Links: 
+    
+https://learn.microsoft.com/en-us/dotnet/framework/windows-services/introduction-to-windows-service-applications#service-lifetime
+
+https://learn.microsoft.com/en-us/windows/win32/services/debugging-a-service
+
+I'm no expert on Windows Services, so this is a learning experience for me. I do know Windows Services (**svchost.exe**) group items together for security (e.g. Network, RPC, Interfaces, Diagnostics, etc.)
+
+In this malware sample, from what I have obtained so far, is trying to create a Service Group by creating registry keys and run continuously and ultimately hide in plain sight.
+
+### Live Debugging:
+
+Using **x32dbg** (in Admin mode), I need to run the *Lab03-02.dll* with *rundll32.exe*. In order to do that I first need to set the settings for *x32dbg* to **Break on DLL Load** and that is under **Options > Preferences**.
+
+![3-2: X32DBG Settings](Images/3-2-10.png)
+
+Then under **File > Change Command Line** make the following edit:
+
+    "C:\Windows\SysWOW64\rundll32.exe" C:\BinaryCollection\Chapter_3L\Lab03-02.dll, Install
+
+![3-2: X32DBG Settings](Images/3-2-11.png)
+
+Now I can step through (F9) twice and break on the loading of *Lab03-02.dll*. Then remove **Break on DLL Load** setting change. Also, take a snapshot!
