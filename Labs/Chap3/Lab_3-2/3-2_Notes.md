@@ -31,7 +31,7 @@ Okay since the *Install* function did not work, let's try *installA* (I thought 
 
 ![3-2: Procmon Snapshot with Filtering Take 2](Images/3-2-5.png)
 
-Again see see the same thing of *NAME NOT FOUND* and *FILE LOCKED WITH ONLY READERS*, but that's about it. So let's do a look with Ghidra/IDA and see what it should have done.
+Again, see see the same thing of *NAME NOT FOUND* and *FILE LOCKED WITH ONLY READERS*, but that's about it. So let's do a look with Ghidra/IDA and see what it should have done.
 
 ![3-2: IDA Look](Images/3-2-6.png)
 
