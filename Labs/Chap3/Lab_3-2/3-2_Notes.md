@@ -31,7 +31,7 @@ Okay since the *Install* function did not work, let's try *installA* (I thought 
 
 ![3-2: Procmon Snapshot with Filtering Take 2](Images/3-2-5.png)
 
-Again, see see the same thing of *NAME NOT FOUND* and *FILE LOCKED WITH ONLY READERS*, but that's about it. So let's do a look with Ghidra/IDA and see what it should have done.
+Again, see see the same thing of *NAME NOT FOUND* and *FILE LOCKED WITH ONLY READERS*, but that's about it. So, let's do a look with Ghidra/IDA and see what this malware should have done.
 
 ![3-2: IDA Look](Images/3-2-6.png)
 
@@ -48,6 +48,6 @@ Going a little deeper into IDA I see this:
 
 ![3-2: IDA Registry Keys](Images/3-2-8.png)
 
-This is me looking at different approaches fitting the piece of the puzzle in the correct spot. I see here that there are some registry entries and most likley in *HKLM\SYSTEM\CurrentControlSet\Services* and seeing earlier that *IRIP* was being added as a service, I am assuming that there will be an *IRIP* key in the registry. Well, there's not because the DLL failed to load/execute. Also, being that it's Windows registry means that persistence is a part of this malware.
+This is just looking at different approaches to fitting the puzzle piece in the correct spot. What I notice here is I see here that there is a registry entry and most likely in *HKLM\SYSTEM\CurrentControlSet\Services* and seeing earlier that *IRIP* was being added as a service, I am assuming that there will be an *IRIP* key in the registry. Well, there's not because the DLL failed to load/execute. Also, being that it's Windows registry means that persistence is a part of this malware.
 
 So we found out the indicators and signatures, both host and network. Unfortunately it did not run as expected. Why? I'm not sure yet.
