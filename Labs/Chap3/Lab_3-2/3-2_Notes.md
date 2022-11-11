@@ -19,7 +19,7 @@ Looking at the **Lab03-02.dll** I see that the export functions are **Install, i
 
 ![3-2: Windows CMD to Execute the DLL](Images/3-2-2.png)
 
-Unfortunately, the DLL failed to install. Why? Well let's look at Procmon.
+Unfortunately, the DLL failed to install and execute. Why? Well let's look at Procmon.
 
 ![3-2: Procmon Snapshot with Filtering](Images/3-2-3.png)
 
@@ -50,4 +50,6 @@ Going a little deeper into IDA I see this:
 
 This is just looking at different approaches to fitting the puzzle piece in the correct spot. What I notice here is I see here that there is a registry entry and most likely in *HKLM\SYSTEM\CurrentControlSet\Services* and seeing earlier that *IRIP* was being added as a service, I am assuming that there will be an *IRIP* key in the registry. Well, there's not because the DLL failed to load/execute. Also, being that it's Windows registry means that persistence is a part of this malware.
 
-So we found out the indicators and signatures, both host and network. Unfortunately it did not run as expected. Why? I'm not sure yet.
+So we found out the indicators and signatures, both host and network. Unfortunately it did not run as expected. **Why?** My first guess is the DLL cannot find/create the registry keys it needs to create the service, so it fails hard.
+
+*** Live Debugging:
