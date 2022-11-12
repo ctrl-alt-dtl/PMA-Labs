@@ -8,7 +8,7 @@ Book Link: https://www.amazon.com/Practical-Malware-Analysis-Hands-Dissecting/dp
 Tools Used:
 - Windows 7 x64 Image
 - VMWare Workstation 15.5
-- Flare VM (https://github.com/mandiant/flare-vm/releases)
+- Flare VM (https://github.com/mandiant/flare-vm)
 - Additional Software:
     - Ghidra (https://ghidra-sre.org/)
     - Wireshark (Updated to latest release)
