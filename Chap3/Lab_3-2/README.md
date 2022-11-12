@@ -77,4 +77,16 @@ Then under **File > Change Command Line** make the following edit:
 
 ![3-2: X32DBG Settings](Images/3-2-11.png)
 
-Now I can step through (F9) twice and break on the loading of *Lab03-02.dll*. Then remove **Break on DLL Load** setting change. Also, take snapshots!
+Now I can step through (F9) twice and break on the loading of *Lab03-02.dll*. Then remove **Break on DLL Load** setting change. Also, take snapshots! Now that we have this in place, the next question is where does it break/fail? I don't intend to spend hours stepping through operations, so on to decomp with Ghidra. 
+
+![3-2: GHIDRA!](Images/3-2-12.png)
+
+Since the DLL will not install a good starting place is the Install export function which on initial decompilation shows *RegOpenKeyExA*, *OutputDebugStringA*, *RegQueryValueExA*, *CreateServiceA*, etc. 
+
+    Note: IDA Pro has some the ability to modify string literals with "const", Ghidra does too with "Set Equate... or (E)" although I cannot seem to get it working right now with Ghidra.
+    
+    Links:
+    https://www.sans.org/blog/a-few-ghidra-tips-for-ida-users-part-2-strings-and-parameters/
+    https://swarm.ptsecurity.com/ida-pro-tips/
+
+[...]
