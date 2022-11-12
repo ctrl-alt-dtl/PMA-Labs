@@ -73,7 +73,8 @@ Using **x32dbg** (in Admin mode), I need to run the *Lab03-02.dll* with *rundll3
 
 Then under **File > Change Command Line** make the following edit:
 
-    "C:\Windows\SysWOW64\rundll32.exe" C:\BinaryCollection\Chapter_3L\Lab03-02.dll, Install
+    "C:\Windows\System32\rundll32.exe" C:\PMA\Labs\Chapter_3L\Lab03-02.dll, Install 
+    (Your location will be different)
 
 ![3-2: X32DBG Settings](Images/3-2-11.png)
 
