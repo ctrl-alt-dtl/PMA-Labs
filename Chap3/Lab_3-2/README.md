@@ -35,7 +35,7 @@ Again, see see the same thing of *NAME NOT FOUND* and *FILE LOCKED WITH ONLY REA
 
 ![3-2: IDA Look](Images/3-2-6.png)
 
-In IDA, I clicked on the *Install* export function and was immediately sent to this function. It is interesting that I see **Svchost** (aka Services) and **IPRIP** which a basic search returned this (https://www.windows-security.org/windows-service/rip-listener). Note: *ServiceMain" in the DLL also means service. Oh and **netsvcs** too, so this is means **network**... 
+In IDA, I clicked on the *Install* export function and was immediately sent to this function. It is interesting that I see **Svchost** (aka Services) and **IPRIP** which a basic search returned this (https://www.windows-security.org/windows-service/rip-listener). Note, *ServiceMain* here and **netsvcs** too, so this is means a **network service**... 
 
 ![3-2: Strings](Images/3-2-7.png)
 
@@ -43,12 +43,13 @@ So we have network requirement and looking at the strings I see interesting URLs
 
 ![3-2: Imports](Images/3-2-9.png)
 
-Looking back at the Imports section shows some interesting calls with **WININET** and **WS2_32** (aka Windows Network DLLs). There are several Internet and HTTP calls as well as some useful information in the imports section with calls like *gethostname*, *_strnicp* (it's above the screenshot crop), *Sleep*, and *WaitForSignleObject*. I also see an *OutputDebugStringA* which may be helpful in seeing where this DLL fails by using **DbgView* from SysInternals.
+Looking back at the Imports section shows some interesting calls with **WININET** and **WS2_32** (aka Windows Network DLLs). There are several Internet and HTTP calls as well as some useful information in the imports section with calls like ***gethostname***, ***_strnicp*** (it's above the screenshot crop), ***Sleep***, and ***WaitForSignleObject***. I also see an ***OutputDebugStringA*** which may be helpful in seeing where this DLL fails by using **DbgView** from SysInternals.
+
 Going a little deeper into IDA I see this:
 
 ![3-2: IDA Registry Keys](Images/3-2-8.png)
 
-This is just looking at different approaches to fitting the puzzle piece in the correct spot. What I notice here is I see here that there is a registry entry and most likely in *HKLM\SYSTEM\CurrentControlSet\Services* and seeing earlier that *IRIP* was being added as a service, I am assuming that there will be an *IRIP* key in the registry. Well, there's not because the DLL failed to load/execute. Also, being that it's Windows registry means that persistence is a part of this malware.
+This is just looking at different approaches to fitting the puzzle piece in the correct spot. What I notice here is I see here that there is a registry entry and most likely in *HKLM\SYSTEM\CurrentControlSet\Services* and seeing earlier that *IRIP* was being added as a service, I am assuming that there will be an *IRIP* key in the registry. Well, there's not  at this moment because the DLL failed to load/execute. Also, being that it's Windows registry means that persistence is a part of this malware.
 
 So we found out the indicators and signatures, both host and network. Unfortunately it did not run as expected. **Why?** My first guess is the DLL cannot find/create the registry keys it needs to create the service, so it fails hard.
 
@@ -66,7 +67,7 @@ In this malware sample, from what I have obtained so far, is trying to create a 
 
 ### Live Debugging:
 
-Using **x32dbg** (in Admin mode), I need to run the *Lab03-02.dll* with *rundll32.exe*. In order to do that I first need to set the settings for *x32dbg* to **Break on DLL Load** and that is under **Options > Preferences**.
+Using **x32dbg** (in Admin mode), I need to run the *Lab03-02.dll* with *rundll32.exe*. In order to do that I first need to set the settings for *x32dbg* to **Break on DLL Load** and that is under **Options > Preferences**. *A friend showed me how to do this and it is extremely helpful!*
 
 ![3-2: X32DBG Settings](Images/3-2-10.png)
 
@@ -76,4 +77,4 @@ Then under **File > Change Command Line** make the following edit:
 
 ![3-2: X32DBG Settings](Images/3-2-11.png)
 
-Now I can step through (F9) twice and break on the loading of *Lab03-02.dll*. Then remove **Break on DLL Load** setting change. Also, take a snapshot!
+Now I can step through (F9) twice and break on the loading of *Lab03-02.dll*. Then remove **Break on DLL Load** setting change. Also, take snapshots!
