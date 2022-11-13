@@ -98,4 +98,4 @@ Into this:
 
 ![3-2: After](Images/3-2-13_2.png)
 
-[...]
+[more coming]
