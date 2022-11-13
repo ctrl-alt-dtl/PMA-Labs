@@ -96,6 +96,6 @@ We can now turn this:
 
 Into this:
 
-![3-2: After](Images/3-2-13_2.png)
+![3-2: After](Images/3-2-13_3.png)
 
 [...]
