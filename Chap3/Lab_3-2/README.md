@@ -96,7 +96,7 @@ With **Set Equate** and **Set Associated Label**, we can now turn this:
 
 Into this:
 
-![3-2: After](Images/3-2-13_2.png)
+![3-2: After](Images/3-2-13.png)
 
 This amount of reversing should be sufficient for now.
 
