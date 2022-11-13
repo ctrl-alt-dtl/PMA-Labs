@@ -82,7 +82,7 @@ Now I can step through (F9) twice and break on the loading of *Lab03-02.dll*. Th
 
 ![3-2: GHIDRA!](Images/3-2-12.png)
 
-Since the DLL will not install a good starting place is the Install export function which on initial decompilation shows *RegOpenKeyExA*, *OutputDebugStringA*, *RegQueryValueExA*, *CreateServiceA*, etc. 
+Since the DLL will not install a good starting place is the Install export function which on initial decompilation shows *RegOpenKeyExA*, *OutputDebugStringA*, *RegQueryValueExA*, *CreateServiceA*, etc. We just need to clean up the decompiled code for better reading. 
 
     Note: IDA Pro has some the ability to modify string literals with "const", Ghidra does too with "Set Equate..."
     
@@ -90,12 +90,14 @@ Since the DLL will not install a good starting place is the Install export funct
     https://www.sans.org/blog/a-few-ghidra-tips-for-ida-users-part-2-strings-and-parameters/
     https://swarm.ptsecurity.com/ida-pro-tips/
 
-We can now turn this:
+With **Set Equate** and **Set Associated Label**, we can now turn this:
 
 ![3-2: Before](Images/3-2-13_1.png)
 
 Into this:
 
-![3-2: After](Images/3-2-13_3.png)
+![3-2: After](Images/3-2-13_2.png)
+
+This amount of reversing should be sufficient for now.
 
 [...]
