@@ -35,7 +35,7 @@ Again, see see the same thing of *NAME NOT FOUND* and *FILE LOCKED WITH ONLY REA
 
 ![3-2: IDA Look](Images/3-2-6.png)
 
-In IDA, I clicked on the *Install* export function and was immediately sent to this function. It is interesting that I see **Svchost** (aka Services) and **IPRIP** which a basic search returned this (https://www.windows-security.org/windows-service/rip-listener). Note, *ServiceMain* here and **netsvcs** too, so this is means a **network service**... 
+In IDA, I clicked on the *Install* export function and was immediately sent to this function. It is interesting that I see **Svchost** (aka Services). Note, **ServiceMain**, **IPRIP**, and **netsvcs** means that the malware is creating a **network service** to conduct either beaconing and C&C.
 
 ![3-2: Strings](Images/3-2-7.png)
 
@@ -49,9 +49,13 @@ Going a little deeper into IDA I see this:
 
 ![3-2: IDA Registry Keys](Images/3-2-8.png)
 
-This is just looking at different approaches to fitting the puzzle piece in the correct spot. What I notice here is I see here that there is a registry entry and most likely in *HKLM\SYSTEM\CurrentControlSet\Services* and seeing earlier that *IRIP* was being added as a service, I am assuming that there will be an *IRIP* key in the registry. Well, there's not  at this moment because the DLL failed to load/execute. Also, being that it's Windows registry means that persistence is a part of this malware.
+This is just looking at different approaches to fitting the puzzle piece in the correct spot. What I notice here is I see here that there is a registry entry and most likely in *HKLM\SYSTEM\CurrentControlSet\Services* and seeing earlier that *IPRIP* was being added as a service, I am assuming that there will be an *IPRIP* key in the registry. Well, there's not  at this moment because the DLL failed to load/execute. Also, being that it's Windows registry means that persistence is a part of this malware.
 
 So we found out the indicators and signatures, both host and network. Unfortunately it did not run as expected. **Why?** My first guess is the DLL cannot find/create the registry keys it needs to create the service, so it fails hard.
+
+## Reversing to Better Understand
+
+Just because the malware didn't execute doesn't mean just stop there. I personally see this as an opportunity to know more about how Windows Services are created and how they work.
 
 ### About Services:
     
