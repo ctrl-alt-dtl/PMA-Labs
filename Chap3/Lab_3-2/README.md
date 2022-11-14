@@ -1,12 +1,6 @@
 # Lab 3-2 (Unfortunately Also Broken)
 
-Contents:
-
-[Problem](#problem)
-
-[Reversing to Better Understand](#reversing-to-better-understand)
-
-[Summary](#summary)
+Contents: [Problem](#problem) | [Reversing to Better Understand](#reversing-to-better-understand) | [Summary](#summary)
 
 
 ## Problem
