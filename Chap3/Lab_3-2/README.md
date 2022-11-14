@@ -1,5 +1,16 @@
 # Lab 3-2 (Unfortunately Also Broken)
 
+Contents:
+
+[Problem](#problem)
+
+[Reversing to Better Understand](#reversing-to-better-understand)
+
+[Summary](#summary)
+
+
+## Problem
+
 ## Analyze the malware found in the file *Lab03-02.dll* using basic dynamic analysis tools.
 
 ### Questions:
@@ -103,5 +114,8 @@ Into this:
 ![3-2: After](Images/3-2-13.png)
 
 This amount of reversing should be sufficient for now.
+
+
+## Summary
 
 [...]
