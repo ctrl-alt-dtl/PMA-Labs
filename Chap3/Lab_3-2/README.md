@@ -1,4 +1,4 @@
-# Lab 3-2 (Unfortunately Also Broken)
+# Lab 3-2 (Unfortunately, Also Broken)
 
 Contents: [Problem](#problem) | [Reversing to Better Understand](#reversing-to-better-understand) | [Summary](#summary)
 
@@ -87,11 +87,11 @@ Then under **File > Change Command Line** make the following edit:
 
 ![3-2: X32DBG Settings](Images/3-2-11.png)
 
-Now I can step through (F9) twice and break on the loading of *Lab03-02.dll*. Then remove **Break on DLL Load** setting change. Also, take snapshots! Now that we have this in place, the next question is where does it break/fail? I don't intend to spend hours stepping through operations, so on to decomp with Ghidra. 
+Now I can step through (F9) twice and break on the loading of *Lab03-02.dll*. Then remove **Break on DLL Load** setting change, since we do not need to break on any other loaded DLLs. Also, take snapshots! Now that we have this in place, the next question is where does it break/fail? I don't intend to spend hours stepping through operations, so on to decomp with Ghidra.
 
 ![3-2: GHIDRA!](Images/3-2-12.png)
 
-Since the DLL will not install a good starting place is the Install export function which on initial decompilation shows *RegOpenKeyExA*, *OutputDebugStringA*, *RegQueryValueExA*, *CreateServiceA*, etc. We just need to clean up the decompiled code for better reading. 
+Since the DLL will not install a good starting place is the Install export function which on initial decompilation shows *RegOpenKeyExA*, *OutputDebugStringA*, *RegQueryValueExA*, *CreateServiceA*, etc. We just need to clean up the decompiled code for better reading.
 
     Note: IDA Pro has some the ability to modify string literals with "const", Ghidra does too with "Set Equate..."
     
@@ -107,7 +107,7 @@ Into this:
 
 ![3-2: After](Images/3-2-13.png)
 
-This amount of reversing should be sufficient for now.
+This amount of reversing should be sufficient for now. Back to x32dbg, we can set a breakpoint on the address for the Install function and then step through the dissassembly while referring to the decompliled code in Ghidra/IDA.
 
 
 ## Summary
