@@ -1,6 +1,6 @@
 # Lab 3-1 (Unfortunately Broken)
 
-## Analyze the malware found in the *Lab03-1.exe* using basic dynamic analysis tools.
+### Analyze the malware found in the *Lab03-1.exe* using basic dynamic analysis tools.
 
 ### Questions:
     1. What are this malware's imports and strings?

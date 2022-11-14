@@ -11,9 +11,9 @@ Contents:
 
 ## Problem
 
-## Analyze the malware found in the file *Lab03-02.dll* using basic dynamic analysis tools.
+### Analyze the malware found in the file *Lab03-02.dll* using basic dynamic analysis tools.
 
-### Questions:
+#### Questions:
     1. How can you get this malware to install itself?
     2. How would you get this malware to run after installation?
     3. How can you find the process under which this malware is running?
@@ -21,7 +21,7 @@ Contents:
     5. What are the malware's host-based indicators?
     6. Are there any useful network-based signatures for this malware?
 
-### Answers:
+#### Answers:
 *Usually before I run anything, I like to poke a bit to see roughly what I can expect to see being run. It just helps me scope my expectations versus outcomes.*
 
 ![3-2: Exports with CFF Explorer](Images/3-2-1.png)
