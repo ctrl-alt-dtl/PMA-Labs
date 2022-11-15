@@ -54,7 +54,7 @@ Going a little deeper into IDA I see this:
 
 ![3-2: IDA Registry Keys](Images/3-2-8.png)
 
-This is just looking at different approaches to fitting the puzzle piece in the correct spot. What I notice here is I see here that there is a registry entry and most likely in *HKLM\SYSTEM\CurrentControlSet\Services* and seeing earlier that *IPRIP* was being added as a service, I am assuming that there will be an *IPRIP* key in the registry. Well, there's not  at this moment because the DLL failed to load/execute. Also, being that it's Windows registry means that persistence is a part of this malware.
+This is just looking at different approaches to fitting the puzzle piece in the correct spot. What I notice here is I see here that there is a registry entry and most likely in *HKLM\\\SYSTEM\\\CurrentControlSet\\\Services* and seeing earlier that *IPRIP* was being added as a service, I am assuming that there will be an *IPRIP* key in the registry. Well, there's not  at this moment because the DLL failed to load/execute. Also, being that it's Windows registry means that persistence is a part of this malware.
 
 So we found out the indicators and signatures, both host and network. Unfortunately it did not run as expected. **Why?** My first guess is the DLL cannot find/create the registry keys it needs to create the service, so it fails hard.
 
@@ -70,7 +70,9 @@ https://learn.microsoft.com/en-us/dotnet/framework/windows-services/introduction
 
 https://learn.microsoft.com/en-us/windows/win32/services/debugging-a-service
 
-I'm no expert on Windows Services, so this is a learning experience for me. I do know Windows Services (**svchost.exe**) group items together for security (e.g. Network, RPC, Interfaces, Diagnostics, etc.)
+I'm no expert on Windows Services, so this is a learning experience for me. I do know Windows Services group items together for security (e.g. Network, RPC, Interfaces, Diagnostics, etc.). Some additional information that was passed to me from a colleague who knows a lot more than I do:
+
+    When using "sc" from the command line to start a serivce, you are interacting with the service control manager in "services.exe" from there advapi32.dll exports all the functionality for interacting with services. If a serive is WIN32_OWN_PROCESS it will launch the service (aka app.exe) as its own process. If it is a WIN32_SHARED_PROCESS then it needs to be hosted in a container as "svchost" and "svchost" can host either 32 or 64-bit binaries.
 
 In this malware sample, from what I have obtained so far, is trying to create a Service Group by creating registry keys and run continuously and ultimately hide in plain sight.
 
@@ -111,7 +113,7 @@ This amount of reversing should be sufficient for now. Back to x32dbg, we can se
 
 ![3-2: Debugging Install](Images/3-2-14.png)
 
-We can find the Install function in the Symbol table of x32dbg because Install was an exported function in the DLL. The addresses between x32dbg and Ghidra/IDA should line up (in this case they did). Note: I made the mistake of using x64dbg at first, instead of x32dbg, and I had issues with hitting the Install function breakpoint. So if you're not seeing the results you're expecting, try the other one.
+We can find the Install function in the Symbol table of x32dbg because Install was an exported function in the DLL. The addresses between x32dbg and Ghidra/IDA should line up (in this case they did). Note: I made the mistake of using x64dbg at first, instead of x32dbg, and I had issues with hitting the Install function breakpoint. This sample is a 32-bit sample. So if you're not seeing the results you're expecting, try the other one.
 
 ![3-2: Debugging Install Deeper](Images/3-2-15.png)
 
