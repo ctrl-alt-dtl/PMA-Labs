@@ -107,8 +107,15 @@ Into this:
 
 ![3-2: After](Images/3-2-13.png)
 
-This amount of reversing should be sufficient for now. Back to x32dbg, we can set a breakpoint on the address for the Install function and then step through the dissassembly while referring to the decompliled code in Ghidra/IDA.
+This amount of reversing should be sufficient for now. Back to x32dbg, we can set a breakpoint on the address for the Install function and then step through the dissassembly while referring to the decompliled code in Ghidra/IDA. 
 
+![3-2: Debugging Install](Images/3-2-14.png)
+
+We can find the Install function in the Symbol table of x32dbg because Install was an exported function in the DLL. The addresses between x32dbg and Ghidra/IDA should line up (in this case they did). Note: I made the mistake of using x64dbg at first, instead of x32dbg, and I had issues with hitting the Install function breakpoint. So if you're not seeing the results you're expecting, try the other one.
+
+![3-2: Debugging Install Deeper](Images/3-2-15.png)
+
+Now we can see the similarities between the two applications and step through them live to see the actual return values or errors.
 
 ## Summary
 
