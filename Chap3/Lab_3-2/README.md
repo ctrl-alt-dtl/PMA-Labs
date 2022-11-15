@@ -127,7 +127,7 @@ So now that we know how it fails, let's make it succeed. We already have our bre
 
 ![3-2: Adding IPRIP](Images/3-2-17.png)
 
-So let's take a snapshot and start making some manual edits to the registry starting with the **IPRIP** substring in the **Svchost** key, we'll add it to the top just to save time.
+So let's take a snapshot and start making some manual edits to the registry starting with the **IPRIP** substring in the **Svchost** key, we'll add it to the top just to save time. Then we can step through and follow the path of execution from there.
 
 ## Summary
 
