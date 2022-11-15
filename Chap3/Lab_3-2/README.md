@@ -95,7 +95,7 @@ Now I can step through (F9) twice and break on the loading of *Lab03-02.dll*. Th
 Since the DLL will not install a good starting place is the Install export function which on initial decompilation shows *RegOpenKeyExA*, *OutputDebugStringA*, *RegQueryValueExA*, *CreateServiceA*, etc. We just need to clean up the decompiled code for better reading.
 
 >Note: IDA Pro has some the ability to modify string literals with "const", Ghidra does too with "Set Equate..." \
-https://www.sans.org/blog/a-few-ghidra-tips-for-ida-users-part-2-strings-and-parameters/\
+https://www.sans.org/blog/a-few-ghidra-tips-for-ida-users-part-2-strings-and-parameters/ \
 https://swarm.ptsecurity.com/ida-pro-tips/
 
 With **Set Equate** and **Set Associated Label**, we can now turn this:
