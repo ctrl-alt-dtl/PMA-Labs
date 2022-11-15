@@ -119,7 +119,7 @@ Now we can see the similarities between the two applications and step through th
 
 ![3-2: Stepping Through](Images/3-2-16.png)
 
-Next step through is to query *netsvcs*, which is in the registry, but now the malware is looking for a substring of data... mainly IPRIP. I am highlighting the parsing process on its second pass. Eventually, after stepping through each substring, the DLL will not find IPRIP. It will then drop out of its loop, display the output debug string, call the exception, and abort.
+Next step through is to query *netsvcs*, which is in the registry, but now the malware is looking for a substring of data... mainly IPRIP. I am highlighting the parsing process on its second pass here for reference. Eventually, after stepping through each substring, the DLL will not find IPRIP. It will then drop out of its loop, display the output debug string, call the exception, and abort.
 
 ## Making It Work
 
