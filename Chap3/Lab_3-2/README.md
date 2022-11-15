@@ -1,6 +1,6 @@
 # Lab 3-2 (Unfortunately, Also Broken)
 
-Contents: [Problem](#problem) | [Reversing to Better Understand](#reversing-to-better-understand) | [Summary](#summary)
+Contents: [Problem](#problem) | [Reversing to Better Understand](#reversing-to-better-understand) | [Making It Work](#making-it-work) | [Summary](#summary)
 
 
 ## Problem
@@ -115,7 +115,19 @@ We can find the Install function in the Symbol table of x32dbg because Install w
 
 ![3-2: Debugging Install Deeper](Images/3-2-15.png)
 
-Now we can see the similarities between the two applications and step through them live to see the actual return values or errors.
+Now we can see the similarities between the two applications and step through them live to see the actual return values or errors. Stepping though, I was able to see that we were able to open the *\\\SOFTWARE\\\Microsoft\\\Windows NT\\\CurrentVersion\\\Svchost* location in the registry. 
+
+![3-2: Stepping Through](Images/3-2-16.png)
+
+Next step through is to query *netsvcs*, which is in the registry, but now the malware is looking for a substring of data... mainly IPRIP. I am highlighting the parsing process on its second pass. Eventually, stepping through each substring, the DLL will not find IPRIP and drop out of its loop and display the output debug string, then call the exception, and abort.
+
+## Making It Work
+
+So now that we know how it fails, let's make it succeed. We already have our breakpoints set from the past run and we know where it fails.
+
+![3-2: Adding IPRIP](Images/3-2-17.png)
+
+So let's take a snapshot and start making some manual edits to the registry starting with the **IPRIP** substring in the **Svchost** key, we'll add it to the top just to save time.
 
 ## Summary
 
