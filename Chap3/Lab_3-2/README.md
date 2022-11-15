@@ -64,19 +64,14 @@ Just because the malware didn't execute doesn't mean just stop there. I personal
 
 ### About Services:
     
-Links: 
-    
-https://learn.microsoft.com/en-us/dotnet/framework/windows-services/introduction-to-windows-service-applications#service-lifetime
-
+>Links: \
+https://learn.microsoft.com/en-us/dotnet/framework/windows-services/introduction-to-windows-service-applications#service-lifetime \
 https://learn.microsoft.com/en-us/windows/win32/services/debugging-a-service
 
 I'm no expert on Windows Services, so this is a learning experience for me. I do know Windows Services group items together for security (e.g. Network, RPC, Interfaces, Diagnostics, etc.). Some additional information that was passed to me from a colleague who knows a lot more than I do:
 
-    When using "sc" from the command line to start a serivce, you are interacting with the service control manager 
-    in "services.exe" from there advapi32.dll exports all the functionality for interacting with services. 
-    If a service is WIN32_OWN_PROCESS it will launch the service (aka app.exe) as its own process. 
-    If it is a WIN32_SHARED_PROCESS then it needs to be hosted in a container as "svchost" and "svchost" can host
-    either 32 or 64-bit binaries.
+> When using **sc** from the command line to start a serivce, you are interacting with the service control manager in **services.exe** from there advapi32.dll exports all the functionality for interacting with services. If a service is **WIN32_OWN_PROCESS** it will launch the service (aka app.exe) as its own process.
+If it is a **WIN32_SHARED_PROCESS** then it needs to be hosted in a container as **svchost** and **svchost** can host either 32 or 64-bit binaries.
 
 In this malware sample, from what I have obtained so far, is trying to create a Service Group by creating registry keys and run continuously and ultimately hide in plain sight.
 
@@ -88,8 +83,8 @@ Using **x32dbg** (in Admin mode), I need to run the *Lab03-02.dll* with *rundll3
 
 Then under **File > Change Command Line** make the following edit:
 
-    (Your location will be different...)
-    "C:\Windows\System32\rundll32.exe" C:\PMA\Labs\Chapter_3L\Lab03-02.dll, Install 
+
+`"C:\Windows\System32\rundll32.exe" C:\PMA\Labs\Chapter_3L\Lab03-02.dll, Install ` (*Note: Your location will be different...*)
 
 ![3-2: X32DBG Settings](Images/3-2-11.png)
 
@@ -99,11 +94,9 @@ Now I can step through (F9) twice and break on the loading of *Lab03-02.dll*. Th
 
 Since the DLL will not install a good starting place is the Install export function which on initial decompilation shows *RegOpenKeyExA*, *OutputDebugStringA*, *RegQueryValueExA*, *CreateServiceA*, etc. We just need to clean up the decompiled code for better reading.
 
-    Note: IDA Pro has some the ability to modify string literals with "const", Ghidra does too with "Set Equate..."
-    
-    Links:
-    https://www.sans.org/blog/a-few-ghidra-tips-for-ida-users-part-2-strings-and-parameters/
-    https://swarm.ptsecurity.com/ida-pro-tips/
+>Note: IDA Pro has some the ability to modify string literals with "const", Ghidra does too with "Set Equate..." \
+https://www.sans.org/blog/a-few-ghidra-tips-for-ida-users-part-2-strings-and-parameters/\
+https://swarm.ptsecurity.com/ida-pro-tips/
 
 With **Set Equate** and **Set Associated Label**, we can now turn this:
 
