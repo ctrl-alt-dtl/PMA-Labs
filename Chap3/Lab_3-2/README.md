@@ -56,11 +56,11 @@ Going a little deeper into IDA I see this:
 
 This is just looking at different approaches to fitting the puzzle piece in the correct spot. What I notice here is I see here that there is a registry entry and most likely in *HKLM\\\SYSTEM\\\CurrentControlSet\\\Services* and seeing earlier that *IPRIP* was being added as a service, I am assuming that there will be an *IPRIP* key in the registry. Well, there's not  at this moment because the DLL failed to load/execute. Also, being that it's Windows registry means that persistence is a part of this malware.
 
-So we found out the indicators and signatures, both host and network. Unfortunately it did not run as expected. **Why?** My first guess is the DLL cannot find/create the registry keys it needs to create the service, so it fails hard.
+So we found out the indicators and signatures, both host and network. Unfortunately it did not run as expected. **Why?** My first guess is the DLL cannot find/create the registry keys it needs to create the service, so it fails hard. But based on what we found so far we have met the requirements for answering the lab questions. Technically, it is supposed to work  on XP (I'm using Win 7 x64 here) in order to answer the questions, but I am curious.
 
 ## Reversing to Better Understand
 
-Just because the malware didn't execute doesn't mean just stop there. I personally see this as an opportunity to know more about how Windows Services are created and how they work.
+Just because the malware didn't execute doesn't mean just stop there. I personally see this as an opportunity to know more about how Windows Services are created, how they work, and find out what this malware really does. There is a lot more here than what meets the eye at first so let's dig a bit deeper. So let's first move on to Windows Services.
 
 ### About Services:
     
