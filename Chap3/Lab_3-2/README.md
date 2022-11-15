@@ -72,7 +72,11 @@ https://learn.microsoft.com/en-us/windows/win32/services/debugging-a-service
 
 I'm no expert on Windows Services, so this is a learning experience for me. I do know Windows Services group items together for security (e.g. Network, RPC, Interfaces, Diagnostics, etc.). Some additional information that was passed to me from a colleague who knows a lot more than I do:
 
-    When using "sc" from the command line to start a serivce, you are interacting with the service control manager in "services.exe" from there advapi32.dll exports all the functionality for interacting with services. If a serive is WIN32_OWN_PROCESS it will launch the service (aka app.exe) as its own process. If it is a WIN32_SHARED_PROCESS then it needs to be hosted in a container as "svchost" and "svchost" can host either 32 or 64-bit binaries.
+    When using "sc" from the command line to start a serivce, you are interacting with the service control manager 
+    in "services.exe" from there advapi32.dll exports all the functionality for interacting with services. 
+    If a service is WIN32_OWN_PROCESS it will launch the service (aka app.exe) as its own process. 
+    If it is a WIN32_SHARED_PROCESS then it needs to be hosted in a container as "svchost" and "svchost" can host
+    either 32 or 64-bit binaries.
 
 In this malware sample, from what I have obtained so far, is trying to create a Service Group by creating registry keys and run continuously and ultimately hide in plain sight.
 
