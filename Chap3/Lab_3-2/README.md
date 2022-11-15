@@ -98,7 +98,7 @@ Since the DLL will not install a good starting place is the Install export funct
 https://www.sans.org/blog/a-few-ghidra-tips-for-ida-users-part-2-strings-and-parameters/ \
 https://swarm.ptsecurity.com/ida-pro-tips/
 
-With **Set Equate** and **Set Associated Label**, we can now turn this:
+With **Set Equate** and **Set Associated Label** in Ghidra, we can now turn this:
 
 ![3-2: Before](Images/3-2-13_1.png)
 
