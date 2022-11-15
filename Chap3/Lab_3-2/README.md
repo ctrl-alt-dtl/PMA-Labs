@@ -88,7 +88,7 @@ Then under **File > Change Command Line** make the following edit:
 
 ![3-2: X32DBG Settings](Images/3-2-11.png)
 
-Now I can step through (F9) twice and break on the loading of *Lab03-02.dll*. Then remove **Break on DLL Load** setting change, since we do not need to break on any other loaded DLLs. Also, take snapshots! Now that we have this in place, the next question is where does it break/fail? I don't intend to spend hours stepping through operations, so on to decomp with Ghidra.
+Now I can step through (F9) twice and break on the loading of *Lab03-02.dll*. Then remove **Break on: DLL Load** setting change, since we do not need to break on any other loaded DLLs. Also, take snapshots! Now that we have this in place, the next question is where does it break/fail? I don't intend to spend hours stepping through operations, so on to decomp with Ghidra.
 
 ![3-2: GHIDRA!](Images/3-2-12.png)
 
