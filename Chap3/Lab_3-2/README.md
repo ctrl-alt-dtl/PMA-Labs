@@ -84,7 +84,7 @@ Using **x32dbg** (in Admin mode), I need to run the *Lab03-02.dll* with *rundll3
 Then under **File > Change Command Line** make the following edit:
 
 
-`"C:\Windows\System32\rundll32.exe" C:\PMA\Labs\Chapter_3L\Lab03-02.dll, Install ` (*Note: Your location will be different...*)
+`"C:\Windows\System32\rundll32.exe" C:\PMA\Labs\Chapter_3L\Lab03-02.dll, Install ` (*Note: Your location will be different... Also we'll run into a [problem with this later](#64-bit-to-32-bit-envrionment-error)*)
 
 ![3-2: X32DBG Settings](Images/3-2-11.png)
 
@@ -126,7 +126,13 @@ So now that we know how it fails, let's make it succeed. We already have our bre
 
 ![3-2: Adding IPRIP](Images/3-2-17.png)
 
-So let's take a snapshot and start making some manual edits to the registry starting with the **IPRIP** substring in the **Svchost** key, we'll add it to the top just to save time. Then we can step through and follow the path of execution from there.
+So let's take a snapshot and start making some manual edits to the registry starting with the **IPRIP** substring in the **Svchost** key, we'll add it to the top just to save time. Then we can step through and follow the path of execution from there. Which unfortunately I hit a small issue when doing this step through. Intially I made edits to the *\\\SOFTWARE\\\Microsoft\\\Windows NT\\\CurrentVersion\\\Svchost\\\netsvcs* registry key.
+
+## 64-bit to 32-bit Envrionment Error
+ 
+However, when stepping through with x32dbg, I noticed that **IPRIP** was not populating in memory. So I did a registry search in **regedit** for **netsvcs** I found similar key at *\\\SOFTWARE\\\Wow6432Node\\\Microsoft\\\Windows NT\\\CurrentVersion\\\Svchost* the difference here is the Wow6432Node. *That hot "Windows on Windows (WoW)" action*. This threw me down the path of the whole working a 32-bit sample in a 64-bit envrionment in which I added the **IPRIP** to the Wow6432Node version of netsvcs.
+
+Another problem I had is I was using: `"C:\Windows\System32\rundll32.exe" C:\PMA\Labs\Chapter_3L\Lab03-02.dll, Install ` when I should have been using `"C:\Windows\SysWOW64\rundll32.exe" C:\PMA\Labs\Chapter_3L\Lab03-02.dll, Install ` to do my debugging. Again, working a 32-bit sample in a 64-bit environment.
 
 ## Summary
 
