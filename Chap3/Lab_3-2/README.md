@@ -18,7 +18,7 @@ Contents: [Problem](#problem) | [Reversing to Better Understand](#reversing-to-b
 
 1. To install we can simply use: `"C:\Windows\SysWOW64\rundll32.exe" C:\PMA\Labs\Chapter_3L\Lab03-02.dll, Install ` or `"C:\Windows\SysWOW64\rundll32.exe" C:\PMA\Labs\Chapter_3L\Lab03-02.dll, installA ` since this is a 32-bit sample in a 64-bit environment. There is a problem when installing; however, I do dig into [Making It Work](#making-it-work).
 2. Two ways here: Starting using Task Manager or through command line execution with `net start IPRIP` (more information: https://learn.microsoft.com/en-us/dotnet/framework/windows-services/how-to-start-services and https://ss64.com/nt/net-service.html)
-3. Use ProcessExplorer and hover over the various *svchosts.exe* until you see IPRP.
+3. Use ProcessExplorer and hover over the various *svchosts.exe* until you see IPRIP.
 4. This is answered in detail below with screenshots; however, **ProcessName = rundll32.exe** to see the install process as well as the Process ID will work when the malware is installed and running. 
 5. Through static analysis, we can see the registry key strings that are being accessed and created as well as the service creation process and name during the Install function of the DLL.
 6. There is a User-Agent string, a *serve.html* page, and a URL (*practicalmalwareanalysis.com*) in the strings section of the DLL.
