@@ -149,7 +149,7 @@ In the Install export function, we just have the service name being passed in to
 
 ![3-2: installA](Images/3-2-18-2.png)
 
-However, with installA we have the correct way to execute our malware. Although we still call **Install** we have a fully structured command line argument that we can use with **rundll32.exe**. 
+However, with installA we have the correct way to execute our malware. Although we still call **Install** we have a fully structured command line argument that we can use with **rundll32.exe**.
 
 ## Back on Track
 
@@ -173,9 +173,9 @@ And when it is all said and done we have this in our Services section of our Tas
 
 ![3-2: The Malware-2](Images/3-2-22.png)
 
-Which I had to start manually, probably because I didn't realize the service was created at first.
+Which I had to start manually, probably because I didn't realize the service was created at first. I noticed the **CreateService (%s) error %d** pop up on DebugView, so I didn't check the Task Manager at first. I also didn't explicily call **ServiceMain** and **Install** does not call it either, so that's why it did not start.
 
-And in **Fakenet-NG** we have this network capture:
+Anyway, manually starting it in Task Manager and using **Fakenet-NG** to capture the network we can now see this:
 
 ![3-2: The Malware-3](Images/3-2-24.png)
 
