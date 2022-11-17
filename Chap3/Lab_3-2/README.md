@@ -159,8 +159,32 @@ With the correct service name in the correct Windows registry key can move fowar
 
 ![3-2: Seeing the Results](Images/3-2-19.png)
 
-If done correctly, we should see our results. Now let's follow through execution.
+If done correctly, we should see our results as we follow through with execution.
+
+![3-2: Setting up the Service](Images/3-2-21.png)
+
+With the right arguments and the right initial registry keys we're able to drop into another segment of the code which is where the malware starts to create the new service. This is just a segment in the dissassembly, the decompiled code is below.
+
+![3-2: Creating the Service](Images/3-2-20.png)
+
+And when it is all said and done we have this in our Services section of our Task Manager:
+
+![3-2: The Malware-1](Images/3-2-23.png)
+
+![3-2: The Malware-2](Images/3-2-22.png)
+
+Which I had to start manually, probably because I didn't realize the service was created at first.
+
+And in **Fakenet-NG** we have this network capture:
+
+![3-2: The Malware-3](Images/3-2-24.png)
+
+Note the User-Agent string of **GET /serve.html HTTP/1.1** with my **Flare-VM** computer name in there along with the hardcoded **"Windows XP 6.1"** (*even though I am running Windows 7*) along with the host URL of **practicalmalwareanalysis.com**.
+
+## Persistence
+
+I did not get into persistence in this part yet, but it is good to know that this malware sample wants to be persistent and to do that it has to write a registry key at \\\HKLM\\\SYSTEM\\\CurrentControlSet\\\Services\\\IPRIP (Note: IPRIP is the default arugment). I was not able to make it persistent, at least not at this time.
 
 ## Summary
 
-[...]
+I know there is more to this malware sample than what meets the eye, but I think we have gone deep enough here. All in all this was a fun piece to dig into even though I went a bit over the top with the analysis and reverse engineering.
