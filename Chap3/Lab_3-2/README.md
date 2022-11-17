@@ -173,7 +173,7 @@ And when it is all said and done we have this in our Services section of our Tas
 
 ![3-2: The Malware-2](Images/3-2-22.png)
 
-Which I had to start manually, probably because I didn't realize the service was created at first. I noticed the **CreateService (%s) error %d** pop up on DebugView, so I didn't check the Task Manager at first. I also didn't explicily call **ServiceMain** and **Install** does not call it either, so that's why it did not start.
+Which I had to start manually, probably because I didn't realize the service was created at first. I noticed the **CreateService (%s) error %d** pop up on DebugView, so I didn't check the Task Manager at first. I also didn't explicily call **ServiceMain** and **Install** does not call it either, so that's why it did not start. 
 
 Anyway, manually starting it in Task Manager and using **Fakenet-NG** to capture the network we can now see this:
 
@@ -181,9 +181,11 @@ Anyway, manually starting it in Task Manager and using **Fakenet-NG** to capture
 
 Note the User-Agent string of **GET /serve.html HTTP/1.1** with my **Flare-VM** computer name in there along with the hardcoded **"Windows XP 6.1"** (*even though I am running Windows 7*) along with the host URL of **practicalmalwareanalysis.com**.
 
+Final note, going back to **ServiceMain** we would see that this would run the service and then sleep for 60 seconds, after which the malware would receive some data from the network and do decryption. I don't know much beyond that, because it is out of the scope of what I wanted to achieve here. However, it would be something to look into down the road.
+
 ## Persistence
 
-I did not get into persistence in this part yet, but it is good to know that this malware sample wants to be persistent and to do that it has to write a registry key at \\\HKLM\\\SYSTEM\\\CurrentControlSet\\\Services\\\IPRIP (Note: IPRIP is the default arugment). I was not able to make it persistent, at least not at this time.
+I did not get into persistence when I was working with this DLL, but it is good to know that this malware sample wants to be persistent and in order to do that it has to write a registry key at \\\HKLM\\\SYSTEM\\\CurrentControlSet\\\Services\\\IPRIP (Note: IPRIP is the default arugment). I was not able to make it persistent, at least not at this time.
 
 ## Summary
 
