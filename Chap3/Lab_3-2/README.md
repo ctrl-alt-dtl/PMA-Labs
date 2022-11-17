@@ -185,7 +185,7 @@ Final note, going back to **ServiceMain** we would see that this would run the s
 
 ## Persistence
 
-I did not get into persistence when I was working with this DLL, but it is good to know that this malware sample wants to be persistent and in order to do that it has to write a registry key at \\\HKLM\\\SYSTEM\\\CurrentControlSet\\\Services\\\IPRIP (Note: IPRIP is the default arugment). I was not able to make it persistent, at least not at this time.
+I did not get into persistence when I was working with this DLL, but it is good to know that this malware sample wants to be persistent and in order to do that it has to write a registry key at \\\HKLM\\\SYSTEM\\\CurrentControlSet\\\Services\\\IPRIP (Note: IPRIP is the default argument). I was not able to make it persistent, at least not at this time.
 
 ## Summary
 
