@@ -84,7 +84,7 @@ Using **x32dbg** (in Admin mode), I need to run the *Lab03-02.dll* with *rundll3
 Then under **File > Change Command Line** make the following edit:
 
 
-`"C:\Windows\System32\rundll32.exe" C:\PMA\Labs\Chapter_3L\Lab03-02.dll, Install ` (*Note: Your location will be different... Also we'll run into a [problem with this later](#64-bit-to-32-bit-envrionment-error)*)
+`"C:\Windows\System32\rundll32.exe" C:\PMA\Labs\Chapter_3L\Lab03-02.dll, Install ` (*Note: Your location will be different... Also, we'll run into a [problem with this later](#64-bit-to-32-bit-envrionment-error)*.)
 
 ![3-2: X32DBG Settings](Images/3-2-11.png)
 
@@ -106,7 +106,7 @@ Into this:
 
 ![3-2: After](Images/3-2-13.png)
 
-This amount of reversing should be sufficient for now. Back to x32dbg, we can set a breakpoint on the address for the Install function and then step through the dissassembly while referring to the decompliled code in Ghidra/IDA. 
+This amount of reversing should be sufficient for now. Back to x32dbg, we can set a breakpoint on the address for the Install function and then step through the dissassembly while referring to the decompliled code in Ghidra/IDA.
 
 ![3-2: Debugging Install](Images/3-2-14.png)
 
@@ -130,9 +130,26 @@ So let's take a snapshot and start making some manual edits to the registry star
 
 ## 64-bit to 32-bit Envrionment Error
  
-However, when stepping through with x32dbg, I noticed that **IPRIP** was not populating in memory. So I did a registry search in **regedit** for **netsvcs** I found similar key at *\\\SOFTWARE\\\Wow6432Node\\\Microsoft\\\Windows NT\\\CurrentVersion\\\Svchost* the difference here is the Wow6432Node. *That hot "Windows on Windows (WoW)" action*. This threw me down the path of the whole working a 32-bit sample in a 64-bit envrionment in which I added the **IPRIP** to the Wow6432Node version of netsvcs.
+However, when stepping through with x32dbg, I noticed that **IPRIP** was not populating in memory. So I did a registry search in **regedit** for **netsvcs** I found similar key at *\\\SOFTWARE\\\Wow6432Node\\\Microsoft\\\Windows NT\\\CurrentVersion\\\Svchost* the difference here is the Wow6432Node. *That hot "Windows on Windows (WoW)" action*. This threw me down the path of the whole working a 32-bit sample in a 64-bit envrionment. Long story short, these two registry key locations are not the same, so I added the **IPRIP** to the Wow6432Node version of netsvcs to see if **IPRIP** would populate in memory (*which it did*).
 
-Another problem I had is I was using: `"C:\Windows\System32\rundll32.exe" C:\PMA\Labs\Chapter_3L\Lab03-02.dll, Install ` when I should have been using `"C:\Windows\SysWOW64\rundll32.exe" C:\PMA\Labs\Chapter_3L\Lab03-02.dll, Install ` to do my debugging. Again, working a 32-bit sample in a 64-bit environment.
+Another problem I had with debugging is I was using: `"C:\Windows\System32\rundll32.exe" C:\PMA\Labs\Chapter_3L\Lab03-02.dll, Install ` when I should have been using `"C:\Windows\SysWOW64\rundll32.exe" C:\PMA\Labs\Chapter_3L\Lab03-02.dll, Install `. Again, working a 32-bit sample in a 64-bit environment. This problem [combined with another issue](#install-versus-installa) had me scratching my head for a good bit.
+
+## Install versus installA
+![3-2: Memory Error](Images/3-2-18-3.png)
+
+I started digging into the entire **Install** versus **installA** export functions whhen I started having memory exception errors in **x32dbg** particularlly with this instruction above.
+
+![3-2: Memory Error in Code](Images/3-2-18-4.png)
+
+I made some assumptions based on what I could find online and labeled the decompiled code. The highlighted line in the decomp above is what matches the assembly instruction. Reading through this decompilation, we can see that if the service name is not found in **netsvcs** then it will fail, as expected from our results earlier. The issue I had with **x32dbg** was involving both my command line arguments and which DLL export function I was calling.
+
+![3-2: Install](Images/3-2-18-1.png)
+
+In the Install export function, we just have the service name being passed in to the function. Which if we do not add an argument, then **IPRIP** is automatically used because it is hardcoded. If we were using a custom DLL loader, this would be an acceptable way to run our malware.
+
+![3-2: installA](Images/3-2-18-2.png)
+
+However, with installA
 
 ## Summary
 
