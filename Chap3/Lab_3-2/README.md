@@ -1,20 +1,32 @@
 # Lab 3-2 (Unfortunately, Also Broken)
 
-Contents: [Problem](#problem) | [Reversing to Better Understand](#reversing-to-better-understand) | [Making It Work](#making-it-work) | [Summary](#summary)
+Contents: [Problem](#problem) | [Reversing to Better Understand](#reversing-to-better-understand) | [Making It Work](#making-it-work) | [Persistence](#persistence) | [Final Thoughts](#final-thoughts)
 
 ## Problem
 
 ### Analyze the malware found in the file *Lab03-02.dll* using basic dynamic analysis tools.
 
 #### Questions:
-    1. How can you get this malware to install itself?
-    2. How would you get this malware to run after installation?
-    3. How can you find the process under which this malware is running?
-    4. Which filter could you set in order to use procmon to glean information?
-    5. What are the malware's host-based indicators?
-    6. Are there any useful network-based signatures for this malware?
+1. How can you get this malware to install itself?
+2. How would you get this malware to run after installation?
+3. How can you find the process under which this malware is running?
+4. Which filter could you set in order to use procmon to glean information?
+5. What are the malware's host-based indicators?
+6. Are there any useful network-based signatures for this malware?
 
 #### Answers:
+
+1. To install we can simply use: `"C:\Windows\SysWOW64\rundll32.exe" C:\PMA\Labs\Chapter_3L\Lab03-02.dll, Install ` or `"C:\Windows\SysWOW64\rundll32.exe" C:\PMA\Labs\Chapter_3L\Lab03-02.dll, installA ` since this is a 32-bit sample in a 64-bit environment. There is a problem when installing; however, I do dig into [Making It Work](#making-it-work).
+2. Two ways here: Starting using Task Manager or through command line execution with `net start IPRIP` (more information: https://learn.microsoft.com/en-us/dotnet/framework/windows-services/how-to-start-services and https://ss64.com/nt/net-service.html)
+3. Use ProcessExplorer and hover over the various *svchosts.exe* until you see IPRP.
+4. This is answered in detail below with screenshots; however, **ProcessName = rundll32.exe** to see the install process as well as the Process ID will work when the malware is installed and running. 
+5. Through static analysis, we can see the registry key strings that are being accessed and created as well as the service creation process and name during the Install function of the DLL.
+6. There is a User-Agent string, a *serve.html* page, and a URL (*practicalmalwareanalysis.com*) in the strings section of the DLL.
+
+**TLDR:** I go into further detail of how I broke down this DLL, stepping through the process of reverse engineering its function, and then making it work as intented. This sample did not work on a 64-bit system intially and it required working through the code and some dynamic debugging to fully run this sample.
+
+### Answers, but With More Details
+
 *Usually before I run anything, I like to poke a bit to see roughly what I can expect to see being run. It just helps me scope my expectations versus outcomes.*
 
 ![3-2: Exports with CFF Explorer](Images/3-2-1.png)
@@ -126,13 +138,13 @@ So now that we know how it fails, let's make it succeed. We already have our bre
 
 So let's take a snapshot and start making some manual edits to the registry starting with the **IPRIP** substring in the **Svchost** key, we'll add it to the top just to save time. Then we can step through and follow the path of execution from there. Which unfortunately I hit a small issue when doing this step through. Intially I made edits to the *\\\SOFTWARE\\\Microsoft\\\Windows NT\\\CurrentVersion\\\Svchost\\\netsvcs* registry key. You can [bypass this rabbit hole](#back-on-track) though.
 
-## 64-bit to 32-bit Envrionment Error
+### 64-bit to 32-bit Envrionment Error
 
 However, when stepping through with x32dbg, I noticed that **IPRIP** was not populating in memory. So I did a registry search in **regedit** for **netsvcs** I found similar key at *\\\SOFTWARE\\\Wow6432Node\\\Microsoft\\\Windows NT\\\CurrentVersion\\\Svchost* the difference here is the **Wow6432Node**. *That hot "Windows on Windows (WoW)" action*. This threw me down the path of the whole working a 32-bit sample in a 64-bit envrionment. Long story short, these two registry key locations are not the same, so I added the **IPRIP** to the Wow6432Node version of netsvcs to see if **IPRIP** would populate in memory (*which it did*).
 
 Another problem I had with debugging is I was using: `"C:\Windows\System32\rundll32.exe" C:\PMA\Labs\Chapter_3L\Lab03-02.dll, Install ` when I should have been using `"C:\Windows\SysWOW64\rundll32.exe" C:\PMA\Labs\Chapter_3L\Lab03-02.dll, Install `. Again, working a 32-bit sample in a 64-bit environment. This problem [combined with another issue](#install-versus-installa) had me scratching my head for a good bit.
 
-## Install versus installA
+### Install versus installA
 ![3-2: Memory Error](Images/3-2-18-3.png)
 
 I started digging into the entire **Install** versus **installA** export functions whhen I started having memory exception errors in **x32dbg** particularlly with this instruction above.
@@ -149,7 +161,7 @@ In the Install export function, we just have the service name being passed in to
 
 However, with **installA** we have the correct way to execute our malware. Although we still call **Install** we have a fully structured command line argument that we can use with **rundll32.exe**.
 
-## Back on Track
+### Back on Track
 
 With the correct service name in the correct Windows registry key can move foward. Not to mention that we're using: \
  `"C:\Windows\SysWOW64\rundll32.exe" C:\PMA\Labs\Chapter_3L\Lab03-02.dll, installA ` as our command line argument in **x32dbg**. So, let's see what happens with proper execution now that the stars are aligned. *Oh and don't forget the space after **installA** in **x32dbg**, remember that is part of the argument stack and we can use any name we want.*
@@ -184,6 +196,6 @@ Final note, going back to **ServiceMain** we would see that this would run the s
 
 I did not get into persistence when I was working with this DLL, but it is good to know that this malware sample wants to be persistent and in order to do that it has to write a registry key at \\\HKLM\\\SYSTEM\\\CurrentControlSet\\\Services\\\IPRIP (Note: IPRIP is the default argument). I was not able to make it persistent, at least not at this time.
 
-## Summary
+## Final Thoughts
 
 I know there is more to this malware sample than what meets the eye, but I think we have gone deep enough here. All in all this was a fun piece to dig into even though I went a bit over the top with the analysis and reverse engineering.
