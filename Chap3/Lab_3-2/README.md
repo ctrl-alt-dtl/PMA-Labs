@@ -153,7 +153,14 @@ However, with installA we have the correct way to execute our malware. Although 
 
 ## Back on Track
 
-So now that we're using `"C:\Windows\SysWOW64\rundll32.exe" C:\PMA\Labs\Chapter_3L\Lab03-02.dll, installAl ` let's see what happens with proper execution.
+With the correct service name in the correct Windows registry key can move foward. Not to mention that we're using: \
+ `"C:\Windows\SysWOW64\rundll32.exe" C:\PMA\Labs\Chapter_3L\Lab03-02.dll, installA ` \
+as our command line argument in **x32dbg**. So, let's see what happens with proper execution now that the stars are aligned. \
+*Oh and don't forget the space after **installA** in **x32dbg**, remember that is part of the argument stack and we can use any name we want.*
+
+![3-2: Seeing the Results](Images/3-2-19.png)
+
+When everything aligns correctly, we should see our results 
 
 ## Summary
 
