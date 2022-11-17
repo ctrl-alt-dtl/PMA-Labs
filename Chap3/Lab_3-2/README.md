@@ -181,7 +181,7 @@ Anyway, manually starting it in Task Manager and using **Fakenet-NG** to capture
 
 Note the User-Agent string of **GET /serve.html HTTP/1.1** with my **Flare-VM** computer name in there along with the hardcoded **"Windows XP 6.1"** (*even though I am running Windows 7*) along with the host URL of **practicalmalwareanalysis.com**.
 
-Final note, going back to **ServiceMain** we would see that this would run the service and then sleep for 60 seconds, after which the malware would receive some data from the network and do decryption. I don't know much beyond that, because it is out of the scope of what I wanted to achieve here. However, it would be something to look into down the road.
+Final note, going back to **ServiceMain** we would see that this would run the service and then sleep for 60 seconds, after which the malware would receive some data from the network and do decryption. I don't know much beyond that, because well beyond the scope of what I wanted to achieve here. However, it would be something to look into down the road.
 
 ## Persistence
 
