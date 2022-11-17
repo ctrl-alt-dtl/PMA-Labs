@@ -1,6 +1,6 @@
 # Lab 3-2 (Unfortunately, Also Broken)
 
-Contents: [Problem](#problem) | [Reversing to Better Understand](#reversing-to-better-understand) | [Making It Work](#making-it-work) | [Persistence](#persistence) | [Final Thoughts](#final-thoughts)
+Contents: [Problem](#problem) | [Detailed Answers](#detailed-answers) | [Reversing to Better Understand](#reversing-to-better-understand) | [Making It Work](#making-it-work) | [Persistence](#persistence) | [Final Thoughts](#final-thoughts)
 
 ## Problem
 
@@ -25,7 +25,7 @@ Contents: [Problem](#problem) | [Reversing to Better Understand](#reversing-to-b
 
 **Short Summary on Lab 03-02.dll:** I go into further detail of how I broke down this DLL, stepping through the process of reverse engineering its function, and then making it work as intented. This sample did not work on a 64-bit system intially and it required working through the code and some dynamic debugging to fully run this sample. In short, this sample created a network enabled Windows Service with a default name, labled the service under a generic looking label to avoid the casual user's suspicions, established persistence by creating a registry key, and then resovling to a URL for a User-Agent HTTP GET request.
 
-### Answers, but With More Details
+### Detailed Answers
 
 *Usually before I run anything, I like to poke a bit to see roughly what I can expect to see being run. It just helps me scope my expectations versus outcomes.*
 
