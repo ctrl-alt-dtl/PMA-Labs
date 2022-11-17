@@ -2,7 +2,6 @@
 
 Contents: [Problem](#problem) | [Reversing to Better Understand](#reversing-to-better-understand) | [Making It Work](#making-it-work) | [Summary](#summary)
 
-
 ## Problem
 
 ### Analyze the malware found in the file *Lab03-02.dll* using basic dynamic analysis tools.
@@ -63,7 +62,7 @@ So we found out the indicators and signatures, both host and network. Unfortunat
 Just because the malware didn't execute doesn't mean just stop there. I personally see this as an opportunity to know more about how Windows Services are created, how they work, and find out what this malware really does. There is a lot more here than what meets the eye at first so let's dig a bit deeper. So let's first move on to Windows Services.
 
 ### About Services:
-    
+
 >Links: \
 https://learn.microsoft.com/en-us/dotnet/framework/windows-services/introduction-to-windows-service-applications#service-lifetime \
 https://learn.microsoft.com/en-us/windows/win32/services/debugging-a-service
@@ -82,7 +81,6 @@ Using **x32dbg** (in Admin mode), I need to run the *Lab03-02.dll* with *rundll3
 ![3-2: X32DBG Settings](Images/3-2-10.png)
 
 Then under **File > Change Command Line** make the following edit:
-
 
 `"C:\Windows\System32\rundll32.exe" C:\PMA\Labs\Chapter_3L\Lab03-02.dll, Install ` (*Note: Your location will be different... Also, we'll run into a [problem with this later](#64-bit-to-32-bit-envrionment-error)*.)
 
@@ -114,7 +112,7 @@ We can find the Install function in the Symbol table of x32dbg because Install w
 
 ![3-2: Debugging Install Deeper](Images/3-2-15.png)
 
-Now we can see the similarities between the two applications and step through them live to see the actual return values or errors. Stepping though, I was able to see that we were able to open the *\\\SOFTWARE\\\Microsoft\\\Windows NT\\\CurrentVersion\\\Svchost* location in the registry. 
+Now we can see the similarities between the two applications and step through them live to see the actual return values or errors. Stepping though, I was able to see that we were able to open the *\\\SOFTWARE\\\Microsoft\\\Windows NT\\\CurrentVersion\\\Svchost* location in the registry.
 
 ![3-2: Stepping Through](Images/3-2-16.png)
 
@@ -129,7 +127,7 @@ So now that we know how it fails, let's make it succeed. We already have our bre
 So let's take a snapshot and start making some manual edits to the registry starting with the **IPRIP** substring in the **Svchost** key, we'll add it to the top just to save time. Then we can step through and follow the path of execution from there. Which unfortunately I hit a small issue when doing this step through. Intially I made edits to the *\\\SOFTWARE\\\Microsoft\\\Windows NT\\\CurrentVersion\\\Svchost\\\netsvcs* registry key. You can [bypass this rabbit hole](#back-on-track) though.
 
 ## 64-bit to 32-bit Envrionment Error
- 
+
 However, when stepping through with x32dbg, I noticed that **IPRIP** was not populating in memory. So I did a registry search in **regedit** for **netsvcs** I found similar key at *\\\SOFTWARE\\\Wow6432Node\\\Microsoft\\\Windows NT\\\CurrentVersion\\\Svchost* the difference here is the Wow6432Node. *That hot "Windows on Windows (WoW)" action*. This threw me down the path of the whole working a 32-bit sample in a 64-bit envrionment. Long story short, these two registry key locations are not the same, so I added the **IPRIP** to the Wow6432Node version of netsvcs to see if **IPRIP** would populate in memory (*which it did*).
 
 Another problem I had with debugging is I was using: `"C:\Windows\System32\rundll32.exe" C:\PMA\Labs\Chapter_3L\Lab03-02.dll, Install ` when I should have been using `"C:\Windows\SysWOW64\rundll32.exe" C:\PMA\Labs\Chapter_3L\Lab03-02.dll, Install `. Again, working a 32-bit sample in a 64-bit environment. This problem [combined with another issue](#install-versus-installa) had me scratching my head for a good bit.
@@ -173,7 +171,7 @@ And when it is all said and done we have this in our Services section of our Tas
 
 ![3-2: The Malware-2](Images/3-2-22.png)
 
-Which I had to start manually, probably because I didn't realize the service was created at first. I noticed the **CreateService (%s) error %d** pop up on DebugView, so I didn't check the Task Manager at first. I also didn't explicily call **ServiceMain** and **Install** does not call it either, so that's why it did not start. 
+Which I had to start manually, probably because I didn't realize the service was created at first. I noticed the **CreateService (%s) error %d** pop up on DebugView, so I didn't check the Task Manager at first. I also didn't explicily call **ServiceMain** and **Install** does not call it either, so that's why it did not start.
 
 Anyway, manually starting it in Task Manager and using **Fakenet-NG** to capture the network we can now see this:
 
