@@ -126,7 +126,7 @@ So now that we know how it fails, let's make it succeed. We already have our bre
 
 ![3-2: Adding IPRIP](Images/3-2-17.png)
 
-So let's take a snapshot and start making some manual edits to the registry starting with the **IPRIP** substring in the **Svchost** key, we'll add it to the top just to save time. Then we can step through and follow the path of execution from there. Which unfortunately I hit a small issue when doing this step through. Intially I made edits to the *\\\SOFTWARE\\\Microsoft\\\Windows NT\\\CurrentVersion\\\Svchost\\\netsvcs* registry key.
+So let's take a snapshot and start making some manual edits to the registry starting with the **IPRIP** substring in the **Svchost** key, we'll add it to the top just to save time. Then we can step through and follow the path of execution from there. Which unfortunately I hit a small issue when doing this step through. Intially I made edits to the *\\\SOFTWARE\\\Microsoft\\\Windows NT\\\CurrentVersion\\\Svchost\\\netsvcs* registry key. You can [bypass this rabbit hole](#back-on-track) though.
 
 ## 64-bit to 32-bit Envrionment Error
  
@@ -149,7 +149,11 @@ In the Install export function, we just have the service name being passed in to
 
 ![3-2: installA](Images/3-2-18-2.png)
 
-However, with installA
+However, with installA we have the correct way to execute our malware. Although we still call **Install** we have a fully structured command line argument that we can use with **rundll32.exe**. 
+
+## Back on Track
+
+So now that we're using `"C:\Windows\SysWOW64\rundll32.exe" C:\PMA\Labs\Chapter_3L\Lab03-02.dll, installAl ` let's see what happens with proper execution.
 
 ## Summary
 
