@@ -23,7 +23,7 @@ Contents: [Problem](#problem) | [Reversing to Better Understand](#reversing-to-b
 5. Through static analysis, we can see the registry key strings that are being accessed and created as well as the service creation process and name during the Install function of the DLL.
 6. There is a User-Agent string, a *serve.html* page, and a URL (*practicalmalwareanalysis.com*) in the strings section of the DLL.
 
-**TLDR:** I go into further detail of how I broke down this DLL, stepping through the process of reverse engineering its function, and then making it work as intented. This sample did not work on a 64-bit system intially and it required working through the code and some dynamic debugging to fully run this sample.
+**TLDR:** I go into further detail of how I broke down this DLL, stepping through the process of reverse engineering its function, and then making it work as intented. This sample did not work on a 64-bit system intially and it required working through the code and some dynamic debugging to fully run this sample. In short, this sample created a network enabled Windows Service with a default name, labled the service under a generic looking label to avoid the casual user's suspicions, established persistence by creating a registry key, and then resovling to a URL for a User-Agent HTTP GET request.
 
 ### Answers, but With More Details
 
