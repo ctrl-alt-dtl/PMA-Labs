@@ -128,7 +128,7 @@ So let's take a snapshot and start making some manual edits to the registry star
 
 ## 64-bit to 32-bit Envrionment Error
 
-However, when stepping through with x32dbg, I noticed that **IPRIP** was not populating in memory. So I did a registry search in **regedit** for **netsvcs** I found similar key at *\\\SOFTWARE\\\Wow6432Node\\\Microsoft\\\Windows NT\\\CurrentVersion\\\Svchost* the difference here is the Wow6432Node. *That hot "Windows on Windows (WoW)" action*. This threw me down the path of the whole working a 32-bit sample in a 64-bit envrionment. Long story short, these two registry key locations are not the same, so I added the **IPRIP** to the Wow6432Node version of netsvcs to see if **IPRIP** would populate in memory (*which it did*).
+However, when stepping through with x32dbg, I noticed that **IPRIP** was not populating in memory. So I did a registry search in **regedit** for **netsvcs** I found similar key at *\\\SOFTWARE\\\Wow6432Node\\\Microsoft\\\Windows NT\\\CurrentVersion\\\Svchost* the difference here is the **Wow6432Node**. *That hot "Windows on Windows (WoW)" action*. This threw me down the path of the whole working a 32-bit sample in a 64-bit envrionment. Long story short, these two registry key locations are not the same, so I added the **IPRIP** to the Wow6432Node version of netsvcs to see if **IPRIP** would populate in memory (*which it did*).
 
 Another problem I had with debugging is I was using: `"C:\Windows\System32\rundll32.exe" C:\PMA\Labs\Chapter_3L\Lab03-02.dll, Install ` when I should have been using `"C:\Windows\SysWOW64\rundll32.exe" C:\PMA\Labs\Chapter_3L\Lab03-02.dll, Install `. Again, working a 32-bit sample in a 64-bit environment. This problem [combined with another issue](#install-versus-installa) had me scratching my head for a good bit.
 
@@ -147,7 +147,7 @@ In the Install export function, we just have the service name being passed in to
 
 ![3-2: installA](Images/3-2-18-2.png)
 
-However, with installA we have the correct way to execute our malware. Although we still call **Install** we have a fully structured command line argument that we can use with **rundll32.exe**.
+However, with **installA** we have the correct way to execute our malware. Although we still call **Install** we have a fully structured command line argument that we can use with **rundll32.exe**.
 
 ## Back on Track
 
@@ -171,7 +171,7 @@ And when it is all said and done we have this in our Services section of our Tas
 
 ![3-2: The Malware-2](Images/3-2-22.png)
 
-Which I had to start manually, probably because I didn't realize the service was created at first. I noticed the **CreateService (%s) error %d** pop up on DebugView, so I didn't check the Task Manager at first. I also didn't explicily call **ServiceMain** and **Install** does not call it either, so that's why it did not start.
+Which I had to start manually, probably because I didn't realize the service was created at first. I noticed the **CreateService (%s) error %d** pop up on **DebugView**, so I didn't check the Task Manager at first. I also didn't explicily call **ServiceMain** and **Install** does not call it either, so that's why it did not start.
 
 Anyway, manually starting it in Task Manager and using **Fakenet-NG** to capture the network we can now see this:
 
