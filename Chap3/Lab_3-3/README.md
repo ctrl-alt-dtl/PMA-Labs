@@ -33,4 +33,4 @@ Note: I ran this a few times so the PIDs do not line up with my screenshots. Her
 
 ![3-3: svchost-procexplorer-2](Images/3-3-7.png)
 
-However, by the time the process is about to resume (and before it crashes) the memory of the process increased in size. Which means this process was having data written to it before being restarted.
+However, by the time the process is about to resume (and before it crashes just after `0x7630D11` or the `&ZwResumeThread` call) the memory of the process increased in size. Which means this process was having data written to it before being restarted.
