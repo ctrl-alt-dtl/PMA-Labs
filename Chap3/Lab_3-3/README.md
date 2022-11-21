@@ -10,7 +10,18 @@
 
 ### Answers:
 
-1. Since this is broken on Win 7 the malware sample does not effectively work during execute. In Process Explorer I see **svchost.exe** started as a child process to **Lab03-03.exe**. Just by looking at the code in Ghidra, my assumption is this sample is trying to replace **svchost.exe**.
-2. 
-3. 
-4. 
+![3-3: SVCHOST.exe](Images/3-3-3.png)
+
+1. Since this is broken on Win 7 the malware sample does not effectively work during execute. In Process Explorer I see **svchost.exe** started as a child process to **Lab03-03.exe**. Hopwever, it fails out and closes by itself. Just by looking at the code in Ghidra, my assumption is this sample is trying to "replace" **svchost.exe**. 
+2. Stepping through with x32dbg I can see data being written from .text and .rdata from memory in the created **svchost.exe**. [More here](#in-memory).
+3. Viewing the in-memory dump I can see the `practicalmalwareanalysis.log` filename and a series of key presses that are associated with it.[More here](#in-memory).
+4. It is a keylogger application, I just cannot execute the malware correctly for the `practicalmalwareanalysis.log` to be created.
+
+
+## Detailed Answers
+
+### In-Memory
+
+![3-3: In-Memory Dump](Images/3-3-2.png)
+
+Stepping through the execution at `0x0041251` I eventually see this information being written to the newly created **svchost.exe**. There's a loop starting at `0x00401260` that copies the sections in-memory and writes them to the new process.
