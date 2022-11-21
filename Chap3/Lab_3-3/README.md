@@ -26,4 +26,11 @@
 
 Stepping through the execution at `0x0041251` I eventually see this information being written to the newly created **svchost.exe**. There's a loop starting at `0x00401260` that copies the sections in-memory and writes them to the new process.
 
+![3-3: svchost-procexplorer](Images/3-3-6.png)
+
 ![3-3: svchost-memory](Images/3-3-4.png) ![3-3: svchost-image](Images/3-3-5.png)
+Note: I ran this a few times so the PIDs do not line up with my screenshots. Here I have a partially stepped through svchost.exe.
+
+![3-3: svchost-procexplorer-2](Images/3-3-7.png)
+
+However, by the time the process is about to resume (and before it crashes) the memory of the process increased in size. Which means this process was having data written to it before being restarted.
