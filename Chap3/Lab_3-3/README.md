@@ -25,3 +25,5 @@
 ![3-3: In-Memory Dump](Images/3-3-2.png)
 
 Stepping through the execution at `0x0041251` I eventually see this information being written to the newly created **svchost.exe**. There's a loop starting at `0x00401260` that copies the sections in-memory and writes them to the new process.
+
+![3-3: svchost-memory](Images/3-3-4.png) ![3-3: svchost-image](Images/3-3-5.png)
