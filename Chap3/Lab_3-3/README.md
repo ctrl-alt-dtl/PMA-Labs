@@ -29,7 +29,7 @@ Stepping through the execution at `0x0041251` I eventually see this information 
 ![3-3: svchost-procexplorer](Images/3-3-6.png)
 
 ![3-3: svchost-memory](Images/3-3-4.png) ![3-3: svchost-image](Images/3-3-5.png)
-Note: I ran this a few times so the PIDs do not line up with my screenshots. Here I have a partially stepped through svchost.exe.
+Note: I ran this a few times so the PIDs do not line up with my screenshots. Here I have a partially stepped through svchost.exe. I am not able to see the strings in the new process either in-memory or in-image.
 
 ![3-3: svchost-procexplorer-2](Images/3-3-7.png)
 
