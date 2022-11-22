@@ -36,7 +36,7 @@ Note: I ran this a few times so the PIDs do not line up with my screenshots. Her
 
 However, by the time the process is about to resume (and before it crashes just after `0x7630D11` or the `&ZwResumeThread` call) the memory of the process increased in size with different data than what it started with. In short, it's **Process Hollowing**, see below for more information.
 
-### Notable Mentions
+### Process Hollowing
 
 ![3-3: CAPA scan](Images/3-3-8.png)
 
