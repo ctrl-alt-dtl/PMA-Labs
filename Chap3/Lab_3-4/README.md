@@ -11,7 +11,7 @@
 
 1. Initial run suggests the file executes and deletes itself from disk.
 2. Either some sort of valid input to execute the malware. Possibly a command line argument, loader, or network access.
-3. Strings inside the sample suggest command line arguments.
+3. Strings inside the sample suggest command line arguments, but using these arguments in strings did not alter the execution.
 
 ![3-4: Strings](Images/3-4-1.png)
 
