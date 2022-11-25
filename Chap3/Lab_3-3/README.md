@@ -12,7 +12,7 @@
 
 ![3-3: SVCHOST.exe](Images/3-3-3.png)
 
-1. Since this is broken on Win 7 the malware sample does not effectively work during execute. In Process Explorer I see **svchost.exe** started as a child process to **Lab03-03.exe**. Hopwever, it fails out and closes by itself. Just by looking at the code in Ghidra, my assumption is this sample is trying to create a **svchost.exe** process and "replace" as a new process.
+1. Since this is broken on Win 7 the malware sample does not effectively work during execute. In Process Explorer I see **svchost.exe** started as a child process to **Lab03-03.exe**. However, it fails out and closes by itself. Just by looking at the code in Ghidra, my assumption is this sample is trying to create a **svchost.exe** process and "replace" as a new process.
 2. Stepping through with x32dbg I can see data being written from .text and .rdata from memory in the created **svchost.exe**. [More here](#in-memory).
 3. Viewing the in-memory dump I can see the `practicalmalwareanalysis.log` filename and a series of key presses that are associated with it. [More here](#in-memory).
 4. It is a keylogger application, I just cannot execute the malware correctly for the `practicalmalwareanalysis.log` to be created.
@@ -29,7 +29,7 @@ Stepping through the execution at `0x0041251` I eventually see this information 
 
 ![3-3: svchost-memory](Images/3-3-4.png) ![3-3: svchost-image](Images/3-3-5.png)
 
-Note: I ran this a few times so the PIDs do not line up with my screenshots. Here I have a partially stepped through svchost.exe. I am not able to see the strings in the new process either in-memory or in-image. The path, when hoving over the process, states the Access is Denied. If this malware was to run correctly, we would see an orphaned **svchost.exe** process with the in-memory strings as above and this process would look pretty much normal to the regular user.
+Note: I ran this a few times so the PIDs do not line up with my screenshots. Here I have a partially stepped through svchost.exe. I am not able to see the strings in the new process either in-memory or in-image. The path, when hovering over the process, states the Access is Denied. If this malware was to run correctly, we would see an orphaned **svchost.exe** process with the in-memory strings as above and this process would look pretty much normal to the regular user.
 
 ![3-3: svchost-procexplorer-2](Images/3-3-7.png)
 
@@ -49,4 +49,4 @@ Also, the original malware sample had decrypted data inside that was decrypted w
 ![3-3: 010 Editor](Images/3-3-11.png)
 ![3-3: 010 Editor](Images/3-3-12.png)
 
-Taking the binary data and XORing it by `0x41` decrpyts the binary to readable data. This is the data that is written into the new **svchost.exe** once it is created, suspended, and hollowed.
+Taking the binary data and XORing it by `0x41` decrypts the binary to readable data. This is the data that is written into the new **svchost.exe** once it is created, suspended, and hollowed.

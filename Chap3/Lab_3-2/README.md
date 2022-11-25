@@ -23,7 +23,7 @@ Contents: [Problem](#problem) | [Detailed Answers](#detailed-answers) | [Reversi
 5. Through static analysis, we can see the registry key strings that are being accessed and created as well as the service creation process and name during the Install function of the DLL.
 6. There is a User-Agent string, a *serve.html* page, and a URL (*practicalmalwareanalysis.com*) in the strings section of the DLL.
 
-**Short Summary on Lab 03-02.dll:** I go into further detail of how I broke down this DLL, stepping through the process of reverse engineering its function, and then making it work as intented. This sample did not work on a 64-bit system intially and it required working through the code and some dynamic debugging to fully run this sample. In short, this sample created a network enabled Windows Service with a default name, labled the service under a generic looking label to avoid the casual user's suspicions, established persistence by creating a registry key, and then resovling to a URL for a User-Agent HTTP GET request.
+**Short Summary on Lab 03-02.dll:** I go into further detail of how I broke down this DLL, stepping through the process of reverse engineering its function, and then making it work as intented. This sample did not work on a 64-bit system initially and it required working through the code and some dynamic debugging to fully run this sample. In short, this sample created a network enabled Windows Service with a default name, labeled the service under a generic looking label to avoid the casual user's suspicions, established persistence by creating a registry key, and then resolving to a URL for a User-Agent HTTP GET request.
 
 ### Detailed Answers
 
@@ -39,7 +39,7 @@ Unfortunately, the DLL failed to install and execute. Why? Well let's look at Pr
 
 ![3-2: Procmon Snapshot with Filtering](Images/3-2-3.png)
 
-I see a lot of *NAME NOT FOUND* and *FILE LOCKED WITH ONLY READERS*. Beyond that I am a bit clueless and a quick search has turned up nothing substanial. Let's try something else.
+I see a lot of *NAME NOT FOUND* and *FILE LOCKED WITH ONLY READERS*. Beyond that I am a bit clueless and a quick search has turned up nothing substantial. Let's try something else.
 
 ![3-2: Windows CMD to Execute the DLL Take 2](Images/3-2-4.png)
 
