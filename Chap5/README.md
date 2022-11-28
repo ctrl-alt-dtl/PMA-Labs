@@ -28,3 +28,4 @@
 21. Open the script with a text editor. How does it work?
 
 ### Answers:
+1. `DllMain` is located at `0x1000D02E` in the `.text` section.
