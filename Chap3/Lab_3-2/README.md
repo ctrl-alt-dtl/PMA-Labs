@@ -1,12 +1,11 @@
 # Lab 3-2 (Unfortunately, Also Broken)
 
-Contents: [Problem](#problem) | [Detailed Answers](#detailed-answers) | [Reversing to Better Understand](#reversing-to-better-understand) | [Making It Work](#making-it-work) | [Persistence](#persistence) | [Final Thoughts](#final-thoughts)
+Contents: [Detailed Answers](#detailed-answers) | [Reversing to Better Understand](#reversing-to-better-understand) | [Making It Work](#making-it-work) | [Persistence](#persistence) | [Final Thoughts](#final-thoughts)
 
-## Problem
+## Analyze the malware found in the file *Lab03-02.dll* using basic dynamic analysis tools
 
-### Analyze the malware found in the file *Lab03-02.dll* using basic dynamic analysis tools.
+### Questions
 
-#### Questions:
 1. How can you get this malware to install itself?
 2. How would you get this malware to run after installation?
 3. How can you find the process under which this malware is running?
@@ -14,16 +13,16 @@ Contents: [Problem](#problem) | [Detailed Answers](#detailed-answers) | [Reversi
 5. What are the malware's host-based indicators?
 6. Are there any useful network-based signatures for this malware?
 
-#### Answers:
+### Answers
 
 1. To install we can simply use: `"C:\Windows\SysWOW64\rundll32.exe" C:\PMA\Labs\Chapter_3L\Lab03-02.dll, Install ` or `"C:\Windows\SysWOW64\rundll32.exe" C:\PMA\Labs\Chapter_3L\Lab03-02.dll, installA ` since this is a 32-bit sample in a 64-bit environment. There is a problem when installing; however, I do dig into [Making It Work](#making-it-work).
-2. Two ways here: Starting using Task Manager or through command line execution with `net start IPRIP` (more information: https://learn.microsoft.com/en-us/dotnet/framework/windows-services/how-to-start-services and https://ss64.com/nt/net-service.html)
+2. Two ways here: Starting using Task Manager or through command line execution with `net start IPRIP` (more information: <https://learn.microsoft.com/en-us/dotnet/framework/windows-services/how-to-start-services> and <https://ss64.com/nt/net-service.html>)
 3. Use ProcessExplorer and hover over the various *svchosts.exe* until you see IPRIP.
 4. This is answered in detail below with screenshots; however, **ProcessName = rundll32.exe** to see the install process as well as the Process ID will work when the malware is installed and running.
 5. Through static analysis, we can see the registry key strings that are being accessed and created as well as the service creation process and name during the Install function of the DLL.
 6. There is a User-Agent string, a *serve.html* page, and a URL (*practicalmalwareanalysis.com*) in the strings section of the DLL.
 
-**Short Summary on Lab 03-02.dll:** I go into further detail of how I broke down this DLL, stepping through the process of reverse engineering its function, and then making it work as intented. This sample did not work on a 64-bit system initially and it required working through the code and some dynamic debugging to fully run this sample. In short, this sample created a network enabled Windows Service with a default name, labeled the service under a generic looking label to avoid the casual user's suspicions, established persistence by creating a registry key, and then resolving to a URL for a User-Agent HTTP GET request.
+**Short Summary on Lab 03-02.dll:** I go into further detail of how I broke down this DLL, stepping through the process of reverse engineering its function, and then making it work as intended. This sample did not work on a 64-bit system initially and it required working through the code and some dynamic debugging to fully run this sample. In short, this sample created a network enabled Windows Service with a default name, labeled the service under a generic looking label to avoid the casual user's suspicions, established persistence by creating a registry key, and then resolving to a URL for a User-Agent HTTP GET request.
 
 ### Detailed Answers
 
@@ -31,7 +30,7 @@ Contents: [Problem](#problem) | [Detailed Answers](#detailed-answers) | [Reversi
 
 ![3-2: Exports with CFF Explorer](Images/3-2-1.png)
 
-Looking at the **Lab03-02.dll** I see that the export functions are **Install, installA, UninstalService, uninstallA, and ServiceMain**. So I would need to run a CMDline console and call *rundll32.exe* and then call the exported DLL function. I'm going to run this CMD console as Admin just in case. I'll have Procmon open and filtering on **ProcessName = rundll32.exe** just in case (it's noisy but a 30 second capture will suffice).
+Looking at the **Lab03-02.dll** I see that the export functions are **Install, installA, UninstallService, uninstallA, and ServiceMain**. So I would need to run a CMDline console and call *rundll32.exe* and then call the exported DLL function. I'm going to run this CMD console as Admin just in case. I'll have Procmon open and filtering on **ProcessName = rundll32.exe** just in case (it's noisy but a 30 second capture will suffice).
 
 ![3-2: Windows CMD to Execute the DLL](Images/3-2-2.png)
 
@@ -73,20 +72,20 @@ So we found out the indicators and signatures, both host and network. Unfortunat
 
 Just because the malware didn't execute doesn't mean just stop there. I personally see this as an opportunity to know more about how Windows Services are created, how they work, and find out what this malware really does. There is a lot more here than what meets the eye at first so let's dig a bit deeper. So let's first move on to Windows Services.
 
-### About Services:
+### About Services
 
 >Links: \
-https://learn.microsoft.com/en-us/dotnet/framework/windows-services/introduction-to-windows-service-applications#service-lifetime \
-https://learn.microsoft.com/en-us/windows/win32/services/debugging-a-service
+<https://learn.microsoft.com/en-us/dotnet/framework/windows-services/introduction-to-windows-service-applications#service-lifetime> \
+<https://learn.microsoft.com/en-us/windows/win32/services/debugging-a-service>
 
 I'm no expert on Windows Services, so this is a learning experience for me. I do know Windows Services group items together for security (e.g. Network, RPC, Interfaces, Diagnostics, etc.). Some additional information that was passed to me from a colleague who knows a lot more than I do (codename: Dnude... *it's an inside joke*):
 
-> When using **sc** from the command line to start a serivce, you are interacting with the service control manager in **services.exe** from there advapi32.dll exports all the functionality for interacting with services. If a service is **WIN32_OWN_PROCESS**, it will launch the service (aka app.exe) as its own process.
+> When using **sc** from the command line to start a service, you are interacting with the service control manager in **services.exe** from there advapi32.dll exports all the functionality for interacting with services. If a service is **WIN32_OWN_PROCESS**, it will launch the service (aka app.exe) as its own process.
 If it is a **WIN32_SHARED_PROCESS**, then it needs to be hosted in a container as **svchost** and **svchost** can host either 32 or 64-bit binaries.
 
 In this malware sample, from what I have obtained so far, is trying to create a Service Group by creating registry keys and run continuously and ultimately hide in plain sight.
 
-### Live Debugging:
+### Live Debugging
 
 Using **x32dbg** (in Admin mode), I need to run the *Lab03-02.dll* with *rundll32.exe*. In order to do that I first need to set the settings for *x32dbg* to **Break on DLL Load** and that is under **Options > Preferences**. *A friend showed me how to do this and it is extremely helpful!*
 
@@ -94,7 +93,7 @@ Using **x32dbg** (in Admin mode), I need to run the *Lab03-02.dll* with *rundll3
 
 Then under **File > Change Command Line** make the following edit:
 
-`"C:\Windows\System32\rundll32.exe" C:\PMA\Labs\Chapter_3L\Lab03-02.dll, Install ` (*Note: Your location will be different... Also, we'll run into a [problem with this later](#64-bit-to-32-bit-envrionment-error)*.)
+`"C:\Windows\System32\rundll32.exe" C:\PMA\Labs\Chapter_3L\Lab03-02.dll, Install ` (*Note: Your location will be different... Also, we'll run into a [problem with this later](#64-bit-to-32-bit-environment-error)*.)
 
 ![3-2: X32DBG Settings](Images/3-2-11.png)
 
@@ -105,8 +104,8 @@ Now I can step through (F9) twice and break on the loading of *Lab03-02.dll*. Th
 Since the DLL will not install a good starting place is the Install export function which on initial decompilation shows *RegOpenKeyExA*, *OutputDebugStringA*, *RegQueryValueExA*, *CreateServiceA*, etc. We just need to clean up the decompiled code for better reading.
 
 >Note: IDA Pro has some the ability to modify string literals with "const", Ghidra does too with "Set Equate..." \
-https://www.sans.org/blog/a-few-ghidra-tips-for-ida-users-part-2-strings-and-parameters/ \
-https://swarm.ptsecurity.com/ida-pro-tips/
+<https://www.sans.org/blog/a-few-ghidra-tips-for-ida-users-part-2-strings-and-parameters/> \
+<https://swarm.ptsecurity.com/ida-pro-tips/>
 
 With **Set Equate** and **Set Associated Label** in Ghidra, we can now turn this:
 
@@ -116,7 +115,7 @@ Into this:
 
 ![3-2: After](Images/3-2-13.png)
 
-This amount of reversing should be sufficient for now. Back to x32dbg, we can set a breakpoint on the address for the Install function and then step through the dissassembly while referring to the decompliled code in Ghidra/IDA.
+This amount of reversing should be sufficient for now. Back to x32dbg, we can set a breakpoint on the address for the Install function and then step through the disassembly while referring to the decompiled code in Ghidra/IDA.
 
 ![3-2: Debugging Install](Images/3-2-14.png)
 
@@ -136,18 +135,19 @@ So now that we know how it fails, let's make it succeed. We already have our bre
 
 ![3-2: Adding IPRIP](Images/3-2-17.png)
 
-So let's take a snapshot and start making some manual edits to the registry starting with the **IPRIP** substring in the **Svchost** key, we'll add it to the top just to save time. Then we can step through and follow the path of execution from there. Which unfortunately I hit a small issue when doing this step through. Intially I made edits to the *\\\SOFTWARE\\\Microsoft\\\Windows NT\\\CurrentVersion\\\Svchost\\\netsvcs* registry key. You can [bypass this rabbit hole](#back-on-track) though.
+So let's take a snapshot and start making some manual edits to the registry starting with the **IPRIP** substring in the **Svchost** key, we'll add it to the top just to save time. Then we can step through and follow the path of execution from there. Which unfortunately I hit a small issue when doing this step through. Initially, I made edits to the *\\\SOFTWARE\\\Microsoft\\\Windows NT\\\CurrentVersion\\\Svchost\\\netsvcs* registry key. You can [bypass this rabbit hole](#back-on-track) though.
 
-### 64-bit to 32-bit Envrionment Error
+### 64-bit to 32-bit Environment Error
 
-However, when stepping through with x32dbg, I noticed that **IPRIP** was not populating in memory. So I did a registry search in **regedit** for **netsvcs** I found similar key at *\\\SOFTWARE\\\Wow6432Node\\\Microsoft\\\Windows NT\\\CurrentVersion\\\Svchost* the difference here is the **Wow6432Node**. *That hot "Windows on Windows (WoW)" action*. This threw me down the path of the whole working a 32-bit sample in a 64-bit envrionment. Long story short, these two registry key locations are not the same, so I added the **IPRIP** to the Wow6432Node version of netsvcs to see if **IPRIP** would populate in memory (*which it did*).
+However, when stepping through with x32dbg, I noticed that **IPRIP** was not populating in memory. So I did a registry search in **regedit** for **netsvcs** I found similar key at *\\\SOFTWARE\\\Wow6432Node\\\Microsoft\\\Windows NT\\\CurrentVersion\\\Svchost* the difference here is the **Wow6432Node**. *That hot "Windows on Windows (WoW)" action*. This threw me down the path of the whole working a 32-bit sample in a 64-bit environment. Long story short, these two registry key locations are not the same, so I added the **IPRIP** to the Wow6432Node version of netsvcs to see if **IPRIP** would populate in memory (*which it did*).
 
 Another problem I had with debugging is I was using: `"C:\Windows\System32\rundll32.exe" C:\PMA\Labs\Chapter_3L\Lab03-02.dll, Install ` when I should have been using `"C:\Windows\SysWOW64\rundll32.exe" C:\PMA\Labs\Chapter_3L\Lab03-02.dll, Install `. Again, working a 32-bit sample in a 64-bit environment. This problem [combined with another issue](#install-versus-installa) had me scratching my head for a good bit.
 
 ### Install versus installA
+
 ![3-2: Memory Error](Images/3-2-18-3.png)
 
-I started digging into the entire **Install** versus **installA** export functions whhen I started having memory exception errors in **x32dbg** particularlly with this instruction above.
+I started digging into the entire **Install** versus **installA** export functions when I started having memory exception errors in **x32dbg** particularly with this instruction above.
 
 ![3-2: Memory Error in Code](Images/3-2-18-4.png)
 
@@ -163,7 +163,7 @@ However, with **installA** we have the correct way to execute our malware. Altho
 
 ### Back on Track
 
-With the correct service name in the correct Windows registry key can move foward. Not to mention that we're using: \
+With the correct service name in the correct Windows registry key can move forward. Not to mention that we're using: \
  `"C:\Windows\SysWOW64\rundll32.exe" C:\PMA\Labs\Chapter_3L\Lab03-02.dll, installA ` as our command line argument in **x32dbg**. So, let's see what happens with proper execution now that the stars are aligned. *Oh and don't forget the space after **installA** in **x32dbg**, remember that is part of the argument stack and we can use any name we want.*
 
 ![3-2: Seeing the Results](Images/3-2-19.png)
@@ -182,7 +182,7 @@ And when it is all said and done we have this in our Services section of our Tas
 
 ![3-2: The Malware-2](Images/3-2-22.png)
 
-Which I had to start manually, probably because I didn't realize the service was created at first. I noticed the **CreateService (%s) error %d** pop up on **DebugView**, so I didn't check the Task Manager at first. I also didn't explicily call **ServiceMain** and **Install** does not call it either, so that's why it did not start.
+Which I had to start manually, probably because I didn't realize the service was created at first. I noticed the **CreateService (%s) error %d** pop up on **DebugView**, so I didn't check the Task Manager at first. I also didn't explicitly call **ServiceMain** and **Install** does not call it either, so that's why it did not start.
 
 Anyway, manually starting it in Task Manager and using **Fakenet-NG** to capture the network we can now see this:
 
