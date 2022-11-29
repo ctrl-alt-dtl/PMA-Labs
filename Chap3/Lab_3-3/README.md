@@ -1,14 +1,15 @@
 # Lab 3-3 (Unfortunately Also Broken, Too*)
 
-## Execute the malware found in the file *Lab03-03.exe* while monitoring it using basic dynamic analysis tools in a safe environment.
+## Execute the malware found in the file *Lab03-03.exe* while monitoring it using basic dynamic analysis tools in a safe environment
 
-### Questions:
+### Questions
+
 1. What do you notice when monitoring this malware with Process Explorer?
 2. Can you identify any live memory modifications?
 3. What are the malware's host-based indicators?
 4. What is the purpose of this program?
 
-### Answers:
+### Answers
 
 ![3-3: SVCHOST.exe](Images/3-3-3.png)
 
@@ -39,7 +40,7 @@ However, by the time the process is about to resume (and before it crashes just 
 
 ![3-3: CAPA scan](Images/3-3-8.png)
 
-It is a bit hard to see this, but pulling a CAPA scan on Lab03-03.exe I see that CAPA recognized the **Process Hollowing** technique (link: https://attack.mitre.org/techniques/T1055/012/).
+It is a bit hard to see this, but pulling a CAPA scan on Lab03-03.exe I see that CAPA recognized the **Process Hollowing** technique (link: <https://attack.mitre.org/techniques/T1055/012/>).
 
 ![3-3: CFF Explorer](Images/3-3-9.png)
 

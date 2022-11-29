@@ -1,13 +1,14 @@
 # Lab 3-4
 
-## Analyze the malware found in the file *Lab03-04.exe* using basic dynamic analysis tools.
+## Analyze the malware found in the file *Lab03-04.exe* using basic dynamic analysis tools
 
-### Questions:
+### Questions
+
 1. What happens when you run this file?
 2. What is causing the roadblock in dynamic analysis?
 3. Are there other ways to run this program?
 
-### Answers:
+### Answers
 
 1. Initial run suggests the file executes and deletes itself from disk.
 2. Either some sort of valid input to execute the malware. Possibly a command line argument, loader, a specific file on disk, or network access.
