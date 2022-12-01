@@ -5,6 +5,7 @@
 ## Analyze the malware found in the file *Lab05-01.dll* using only IDA Pro (*Ghidra). The goal of this lab is to give you hands-on experience with IDA Pro\*.
 
 ### Questions:
+
 1. What is the address of `DllMain`?
 2. Use the Imports window to browse `gethostbyname`. Where is the import located?
 3. How many functions call `gethostbyname`?
@@ -28,13 +29,14 @@
 21. Open the script with a text editor. How does it work?
 
 ### Answers:
+
 1. `DllMain` is located at `0x1000D02E` in the `.text` section.
 2. `gethostbyname` import is located in the `.idata` section at `0x100163C8`.
 
 ![3-3: IDA xrefs](Images/5-1.png)] ![3-3: IDA xrefs-sorted](Images/5-1-2.png)]
 ![3-3: Ghidra xrefs](Images/5-1-1.png)]
 
-3. There are 9 function calls with `gethostbyname` in IDA. If you sort the list you can see five separate function calls. Ghidra shows similar data, although it took a couple extra steps to find it. I had to use *Search > Label History (H)* and enter in `gethostbyname`, find the **WS2_32.DLL:gethostbyname** then *right-click >  References > Show References to gethostbyname*.
+3. There are nine function calls with `gethostbyname` in IDA. After sorting the list, you can see five separate function calls (just count the groupings). Ghidra shows similar data, although it took a couple extra steps to find it. I had to use *Search > Label History (H)* and enter in `gethostbyname`, find the **WS2_32.DLL:gethostbyname** then *right-click >  References > Show References to gethostbyname*.
 
 ![3-3: IDA](Images/5-1-3.png)]
 
