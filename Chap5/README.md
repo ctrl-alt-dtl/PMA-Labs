@@ -4,7 +4,7 @@
 
 ## Analyze the malware found in the file *Lab05-01.dll* using only IDA Pro (*Ghidra). The goal of this lab is to give you hands-on experience with IDA Pro\*.
 
-### Questions:
+### Questions
 
 1. What is the address of `DllMain`?
 2. Use the Imports window to browse `gethostbyname`. Where is the import located?
@@ -28,7 +28,7 @@
 20. With the cursor in the same location, how do you turn this data into a single ASCII string?
 21. Open the script with a text editor. How does it work?
 
-### Answers:
+### Answers
 
 1. `DllMain` is located at `0x1000D02E` in the `.text` section.
 2. `gethostbyname` import is located in the `.idata` section at `0x100163C8`.
