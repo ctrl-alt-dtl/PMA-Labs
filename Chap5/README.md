@@ -33,16 +33,16 @@
 1. `DllMain` is located at `0x1000D02E` in the `.text` section.
 2. `gethostbyname` import is located in the `.idata` section at `0x100163C8`.
 
-![3-3: IDA xrefs](Images/5-1.png)] ![3-3: IDA xrefs-sorted](Images/5-1-2.png)]
-![3-3: Ghidra xrefs](Images/5-1-1.png)]
+![3-3: IDA xrefs](Images/5-1.png) ![3-3: IDA xrefs-sorted](Images/5-1-2.png)
+![3-3: Ghidra xrefs](Images/5-1-1.png)
 
 3. There are nine function calls with `gethostbyname` in IDA. After sorting the list, you can see five separate function calls (just count the groupings). Ghidra shows similar data, although it took a couple extra steps to find it. I had to use *Search > Label History (H)* and enter in `gethostbyname`, find the `WS2_32.DLL:gethostbyname` then *right-click >  References > Show References to gethostbyname*.
 
-![3-3: IDA](Images/5-1-3.png)]
+![3-3: IDA](Images/5-1-3.png)
 
 4. Working up from the call to `gethostbyname` we see an offset to `off_100194040`. Clicking into it, in my case hovering over, I see the DNS address of `pics.practicalmalwareanalysis.com` (less the 0xD bytes added in the EAX instruction after, which points to the 'p' in the DNS string).
 
-![3-3: Ghidra](Images/5-1-4.png)]
+![3-3: Ghidra](Images/5-1-4.png)
 
 Ghidra pretty much spelling this out with no effort. Although it did require a forced disassembly request.
 
