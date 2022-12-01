@@ -44,6 +44,6 @@
 
 ![3-3: Ghidra](Images/5-1-4.png)
 
-Ghidra pretty much spelling this out with no effort. Although it did require a forced disassembly request.
+Ghidra is pretty much spelling this out with no effort. Although, it did require a forced disassembly function.
 
 5. [...]
