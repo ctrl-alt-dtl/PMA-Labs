@@ -2,7 +2,7 @@
 
 ## Lab 5-1
 
-## Analyze the malware found in the file *Lab05-01.dll* using only IDA Pro (*Ghidra). The goal of this lab is to give you hands-on experience with IDA Pro\*.
+## Analyze the malware found in the file *Lab05-01.dll* using only IDA Pro (or Ghidra). The goal of this lab is to give you hands-on experience with IDA Pro\*.
 
 *I'm actually using IDA Free, not Pro.
 
