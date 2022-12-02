@@ -4,6 +4,8 @@
 
 ## Analyze the malware found in the file *Lab05-01.dll* using only IDA Pro (*Ghidra). The goal of this lab is to give you hands-on experience with IDA Pro\*.
 
+*I'm actually using IDA Free, not Pro.
+
 ### Questions
 
 1. What is the address of `DllMain`?
@@ -46,4 +48,27 @@
 
 Ghidra is pretty much spelling this out with no effort. Although, it did require a forced disassembly function.
 
-5. [...]
+![3-3: IDA Variables](Images/5-1-5.png)
+
+5. There are 23 local variables are recognized.
+6. Only one is recognized as an argument parameter. I have it highlighted above.
+7. The string is located at `0x10095B34` in the `xdoors_d` section. Ghidra has the same address but a slightly different output for the section.
+8. Jumping to `0x100101D0` where `\\cmd.exe /c` is being pushed to on the stack and moving in reverse to `0x1000FF58` we can see what looks to be a shell prompt for remote access with references to current directory (`GetCurrentDirectoryA`), system time structures, and bytes read.
+
+9. Breaking this answer down below.
+
+![3-3: Part 1](Images/5-1-6.png)
+
+We have the compare to the `dword_1008E5C4` so clicking into that dword we can see the location in the .data section.
+
+![3-3: Part 2](Images/5-1-7.png)
+
+Cross referencing from the .data section we can see the three references using `dword_1008E5C4` in which there was one write and two reads. So we move to the address where the dword is being written to.
+
+![3-3: Part 3](Images/5-1-8.png)
+
+From here we can see that `EAX` is writing data from a previous function call return into `dword_1008E5C4`, so we move one instruction up and look into the call to `sub_10003695`.
+
+![3-3: Part 4](Images/5-1-9.png)
+
+In this function we see a call to `GetVersionExA` that does some enumeration about the OS that queries the `dwOSVersionInfoSize` and `dwPlatformId`. Referencing from (<https://learn.microsoft.com/en-us/windows/win32/api/winnt/ns-winnt-osversioninfoa>) we can see the comparison happening at `0x100036B7` to check if the OS version is Windows 2000 or higher. **So in short, `dword_1008E5C4` stores the OS version.**
