@@ -1,4 +1,4 @@
-# IDA Pro (Throwing Ghidra in here too)
+# IDA Pro (Ghidra too!)
 
 ## Lab 5-1
 
