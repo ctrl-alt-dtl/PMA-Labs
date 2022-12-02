@@ -71,6 +71,6 @@ From here we can see that `EAX` is writing data from a previous function call re
 
 ![3-3: Part 4](Images/5-1-9.png)
 
-In this function we see a call to `GetVersionExA` that does some enumeration about the OS that queries the `dwOSVersionInfoSize` and `dwPlatformId`. Referencing from (<https://learn.microsoft.com/en-us/windows/win32/api/winnt/ns-winnt-osversioninfoa>) we can see the comparison happening at `0x100036B7` to check if the OS version is Windows 2000 or higher. **So in short, `dword_1008E5C4` stores the OS version.**
+In this function we see a call to `GetVersionExA` that does some enumeration about the OS that queries the `dwOSVersionInfoSize` and `dwPlatformId`. Referencing from (<https://learn.microsoft.com/en-us/windows/win32/api/winnt/ns-winnt-osversioninfoa>) we can see the comparison happening at `0x100036B7` is used to check if the OS version is Windows 2000 or higher. **So in short, `dword_1008E5C4` stores the OS version.**
 
 10. [...]
