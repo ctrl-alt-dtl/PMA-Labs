@@ -75,5 +75,5 @@ In this function we see a call to `GetVersionExA` that does some enumeration abo
 
 ![3-3: memcmp](Images/5-1-10.png)
 
-10. At `loc_10010444` we see the string comparison in question. If the string compared string is `robotwork` then the call to `sub_100052A2` is taken. Inside that function, we see registry queries to `SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\WorkTime` and `WorkTimes` keys and then it formats the data with `"\r\n\r\n[Robot_WorkTime :] %d\r\n\r\n"` and finally send that data over the network socket that was specified earlier at `0x1001045E`.
+10. At `loc_10010444` we see the string comparison in question. If the string compared string is `robotwork` then the call to `sub_100052A2` is taken. Inside that function, we see registry queries to `SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\WorkTime` and `WorkTimes` keys. From there the results are formatted with `"\r\n\r\n[Robot_WorkTime :] %d\r\n\r\n"` and finally the data is sent over the network socket that was specified earlier at `0x1001045E`.
 11. [...]
