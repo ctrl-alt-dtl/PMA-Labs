@@ -73,4 +73,7 @@ From here we can see that `EAX` is writing data from a previous function call re
 
 In this function we see a call to `GetVersionExA` that does some enumeration about the OS that queries the `dwOSVersionInfoSize` and `dwPlatformId`. Referencing from (<https://learn.microsoft.com/en-us/windows/win32/api/winnt/ns-winnt-osversioninfoa>) we can see the comparison happening at `0x100036B7` is used to check if the OS version is Windows 2000 or higher. **So in short, `dword_1008E5C4` stores the OS version.**
 
-10. [...]
+![3-3: memcmp](Images/5-1-10.png)
+
+10. At `loc_10010444` we see the string comparison in question. If the string compared string is `robotwork` then the call to `sub_100052A2` is taken. Inside that function, we see registry queries to `SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\WorkTime` and `WorkTimes` keys and then it formats the data with `"\r\n\r\n[Robot_WorkTime :] %d\r\n\r\n"` and finally send that data over the network socket that was specified earlier at `0x1001045E`.
+11. [...]
