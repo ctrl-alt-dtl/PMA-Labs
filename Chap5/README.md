@@ -76,4 +76,13 @@ In this function we see a call to `GetVersionExA` that does some enumeration abo
 ![3-3: memcmp](Images/5-1-10.png)
 
 10. At `loc_10010444` we see the string comparison in question. If the string compared string is `robotwork` then the call to `sub_100052A2` is taken. Inside that function, we see registry queries to `SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\WorkTime` and `WorkTimes` keys. From there the results are formatted with `"\r\n\r\n[Robot_WorkTime :] %d\r\n\r\n"` and finally the data is sent over the network socket that was specified earlier at `0x1001045E`.
-11. [...]
+11. The export PSLIST resolves to `0x10007025` in which a call to function `sub_100036C3` and checks the OS version. Afterwards in either of the paths taken, there are function calls to `CreateToolhelp32Snapshot` in which a process list is obtained and then that data is sent out via a network socket.
+
+![3-3: Function Call Tree](Images/5-1-11.png)
+
+12. Function `sub_10004E79` calls into `GetSystemDefaultLangID`, `sprintf`, `strlen`, `malloc`, `send`, and `free`. I would most likely rename this `_language_localization_ID`.
+
+![3-3: Function Call Tree DLLMain/ServiceMain](Images/5-1-12.png)
+
+13. Working with Ghidra or IDA Free, there is no specific label called `DllMain`; however, there is `ServiceMain` and  and this could just be a nuance between Ghidra/IDA Free vs IDA Pro. Anyway, the function calls from `DllMain` (I renamed the function myself) are shown here.
+14. [...]
