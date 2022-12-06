@@ -84,5 +84,5 @@ In this function we see a call to `GetVersionExA` that does some enumeration abo
 
 ![3-3: Function Call Tree DLLMain/ServiceMain](Images/5-1-12.png)
 
-13. Working with Ghidra or IDA Free, there is no specific label called `DllMain`; however, there is `ServiceMain` and  and this could just be a nuance between Ghidra/IDA Free vs IDA Pro. Anyway, the function calls from `DllMain` (I renamed the function myself) are shown here.
+13. Working with Ghidra or IDA Free, there is no specific label called `DllMain`; however, there is `ServiceMain` and  and this could just be a nuance between Ghidra/IDA Free vs IDA Pro. Anyway, the function calls from `DllMain` (I renamed the function myself) are shown here. They go a lot deeper with functions `10003c0d` and `10002cce`.
 14. [...]
