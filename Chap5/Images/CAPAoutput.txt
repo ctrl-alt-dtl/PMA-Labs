@@ -1,0 +1,155 @@
++------------------------+------------------------------------------------------------------------------------+
+| md5                    | 1a9fd80174aafecd9a52fd908cb82637                                                   |
+| sha1                   | fbe285b8b7fe710724ea35d15948969a709ed33b                                           |
+| sha256                 | eb1079bdd96bc9cc19c38b76342113a09666aad47518ff1a7536eebff8aadb4a                   |
+| path                   | Lab05-01.dll                                                                       |
++------------------------+------------------------------------------------------------------------------------+
+
++------------------------+------------------------------------------------------------------------------------+
+| ATT&CK Tactic          | ATT&CK Technique                                                                   |
+|------------------------+------------------------------------------------------------------------------------|
+| COLLECTION             | Screen Capture [T1113]                                                             |
+| DEFENSE EVASION        | File and Directory Permissions Modification [T1222]                                |
+|                        | Indicator Removal on Host::Timestomp [T1070.006]                                   |
+|                        | Process Injection::Dynamic-link Library Injection [T1055.001]                      |
+|                        | Process Injection::Thread Execution Hijacking [T1055.003]                          |
+|                        | Virtualization/Sandbox Evasion::System Checks [T1497.001]                          |
+| DISCOVERY              | File and Directory Discovery [T1083]                                               |
+|                        | Process Discovery [T1057]                                                          |
+|                        | Query Registry [T1012]                                                             |
+|                        | Software Discovery [T1518]                                                         |
+|                        | System Information Discovery [T1082]                                               |
+|                        | System Network Configuration Discovery [T1016]                                     |
+|                        | System Service Discovery [T1007]                                                   |
+| EXECUTION              | Shared Modules [T1129]                                                             |
+|                        | System Services::Service Execution [T1569.002]                                     |
+| IMPACT                 | Service Stop [T1489]                                                               |
+|                        | System Shutdown/Reboot [T1529]                                                     |
+| PERSISTENCE            | Create or Modify System Process::Windows Service [T1543.003]                       |
+| PRIVILEGE ESCALATION   | Access Token Manipulation [T1134]                                                  |
++------------------------+------------------------------------------------------------------------------------+
+
++-----------------------------+-------------------------------------------------------------------------------+
+| MBC Objective               | MBC Behavior                                                                  |
+|-----------------------------+-------------------------------------------------------------------------------|
+| ANTI-BEHAVIORAL ANALYSIS    | Debugger Detection::Timing/Delay Check GetTickCount [B0001.032]               |
+|                             | Execution Guardrails::Runs as Service [E1480.m07]                             |
+|                             | Virtual Machine Detection::Instruction Testing [B0009.029]                    |
+|                             | Virtual Machine Detection::Unique Hardware/Firmware Check                     |
+|                             | Virtual Machine Detection [B0009]                                             |
+| COLLECTION                  | Screen Capture::WinAPI [E1113.m01]                                            |
+| COMMAND AND CONTROL         | C2 Communication::Receive Data [B0030.002]                                    |
+|                             | C2 Communication::Send Data [B0030.001]                                       |
+| COMMUNICATION               | DNS Communication::Resolve [C0011.001]                                        |
+|                             | HTTP Communication::Send Request [C0002.003]                                  |
+|                             | Interprocess Communication::Create Pipe [C0003.001]                           |
+|                             | Socket Communication::Connect Socket [C0001.004]                              |
+|                             | Socket Communication::Create TCP Socket [C0001.011]                           |
+|                             | Socket Communication::Create UDP Socket [C0001.010]                           |
+|                             | Socket Communication::Get Socket Status [C0001.012]                           |
+|                             | Socket Communication::Initialize Winsock Library [C0001.009]                  |
+|                             | Socket Communication::Receive Data [C0001.006]                                |
+|                             | Socket Communication::Send Data [C0001.007]                                   |
+|                             | Socket Communication::Set Socket Config [C0001.001]                           |
+|                             | Socket Communication::TCP Client [C0001.008]                                  |
+| DEFENSE EVASION             | Disable or Evade Security Tools::Bypass Windows File Protection [F0004.007]   |
+| FILE SYSTEM                 | Copy File [C0045]                                                             |
+|                             | Create Directory [C0046]                                                      |
+|                             | Delete Directory [C0048]                                                      |
+|                             | Delete File [C0047]                                                           |
+|                             | Get File Attributes [C0049]                                                   |
+|                             | Read File [C0051]                                                             |
+|                             | Set File Attributes [C0050]                                                   |
+|                             | Write File [C0052]                                                            |
+| HARDWARE                    | Simulate Hardware::Ctrl-Alt-Del [C0057.001]                                   |
+| OPERATING SYSTEM            | Registry::Create Registry Key [C0036.004]                                     |
+|                             | Registry::Delete Registry Key [C0036.002]                                     |
+|                             | Registry::Delete Registry Value [C0036.007]                                   |
+|                             | Registry::Open Registry Key [C0036.003]                                       |
+|                             | Registry::Query Registry Key [C0036.005]                                      |
+|                             | Registry::Query Registry Value [C0036.006]                                    |
+|                             | Registry::Set Registry Key [C0036.001]                                        |
+| PROCESS                     | Create Mutex [C0042]                                                          |
+|                             | Create Process [C0017]                                                        |
+|                             | Create Thread [C0038]                                                         |
+|                             | Resume Thread [C0054]                                                         |
+|                             | Suspend Thread [C0055]                                                        |
+|                             | Terminate Process [C0018]                                                     |
+|                             | Terminate Thread [C0039]                                                      |
++-----------------------------+-------------------------------------------------------------------------------+
+
++----------------------------------------------------------+------------------------------------------------------+
+| CAPABILITY                                               | NAMESPACE                                            |
+|----------------------------------------------------------+------------------------------------------------------|
+| check for time delay via GetTickCount (3 matches)        | anti-analysis/anti-debugging/debugger-detection      |
+| timestomp file                                           | anti-analysis/anti-forensic/timestomp                |
+| execute anti-VM instructions                             | anti-analysis/anti-vm/vm-detection                   |
+| reference anti-VM strings                                | anti-analysis/anti-vm/vm-detection                   |
+| reference anti-VM strings targeting VMWare               | anti-analysis/anti-vm/vm-detection                   |
+| reference the VMWare IO port                             | anti-analysis/anti-vm/vm-detection                   |
+| read and send data from client to server                 | c2/file-transfer                                     |
+| receive and write data from server to client (4 matches) | c2/file-transfer                                     |
+| capture screenshot (2 matches)                           | collection/screenshot                                |
+| send HTTP request with Host header                       | communication/http                                   |
+| create pipe                                              | communication/named-pipe/create                      |
+| get socket status                                        | communication/socket                                 |
+| initialize Winsock library (4 matches)                   | communication/socket                                 |
+| set socket configuration (3 matches)                     | communication/socket                                 |
+| create UDP socket                                        | communication/socket/udp/send                        |
+| act as TCP client (10 matches)                           | communication/tcp/client                             |
+| hash data with MD5                                       | data-manipulation/hashing/md5                        |
+| contain a resource (.rsrc) section                       | executable/pe/section/rsrc                           |
+| get common file path (15 matches)                        | host-interaction/file-system                         |
+| copy file (6 matches)                                    | host-interaction/file-system/copy                    |
+| create directory                                         | host-interaction/file-system/create                  |
+| delete directory (2 matches)                             | host-interaction/file-system/delete                  |
+| delete file (6 matches)                                  | host-interaction/file-system/delete                  |
+| enumerate files recursively (4 matches)                  | host-interaction/file-system/files/list              |
+| get file attributes (2 matches)                          | host-interaction/file-system/meta                    |
+| set file attributes (2 matches)                          | host-interaction/file-system/meta                    |
+| move file (4 matches)                                    | host-interaction/file-system/move                    |
+| bypass Windows File Protection                           | host-interaction/file-system/windows-file-protection |
+| get CPU information                                      | host-interaction/hardware/cpu                        |
+| simulate CTRL ALT DEL                                    | host-interaction/hardware/keyboard                   |
+| get memory capacity (2 matches)                          | host-interaction/hardware/memory                     |
+| get disk information (3 matches)                         | host-interaction/hardware/storage                    |
+| get disk size (2 matches)                                | host-interaction/hardware/storage                    |
+| print debug messages                                     | host-interaction/log/debug/write-event               |
+| create mutex                                             | host-interaction/mutex                               |
+| get local IPv4 addresses                                 | host-interaction/network/address                     |
+| resolve DNS (5 matches)                                  | host-interaction/network/dns/resolve                 |
+| get networking interfaces                                | host-interaction/network/interface                   |
+| shutdown system                                          | host-interaction/os                                  |
+| get hostname                                             | host-interaction/os/hostname                         |
+| check OS version (4 matches)                             | host-interaction/os/version                          |
+| create a process with modified I/O handles and window    | host-interaction/process/create                      |
+| create process (9 matches)                               | host-interaction/process/create                      |
+| inject dll                                               | host-interaction/process/inject                      |
+| inject thread                                            | host-interaction/process/inject                      |
+| enumerate processes (9 matches)                          | host-interaction/process/list                        |
+| acquire debug privileges (7 matches)                     | host-interaction/process/modify                      |
+| modify access privileges (5 matches)                     | host-interaction/process/modify                      |
+| enumerate process modules (4 matches)                    | host-interaction/process/modules/list                |
+| terminate process                                        | host-interaction/process/terminate                   |
+| query or enumerate registry key (2 matches)              | host-interaction/registry                            |
+| set registry value (9 matches)                           | host-interaction/registry/create                     |
+| delete registry key                                      | host-interaction/registry/delete                     |
+| delete registry value (4 matches)                        | host-interaction/registry/delete                     |
+| query service status (6 matches)                         | host-interaction/service                             |
+| run as service                                           | host-interaction/service                             |
+| create service (2 matches)                               | host-interaction/service/create                      |
+| delete service (2 matches)                               | host-interaction/service/delete                      |
+| enumerate services                                       | host-interaction/service/list                        |
+| modify service (3 matches)                               | host-interaction/service/modify                      |
+| start service (3 matches)                                | host-interaction/service/start                       |
+| stop service (3 matches)                                 | host-interaction/service/stop                        |
+| enumerate threads (2 matches)                            | host-interaction/thread/list                         |
+| resume thread                                            | host-interaction/thread/resume                       |
+| suspend thread (3 matches)                               | host-interaction/thread/suspend                      |
+| terminate thread                                         | host-interaction/thread/terminate                    |
+| link many functions at runtime                           | linking/runtime-linking                              |
+| parse PE exports (3 matches)                             | load-code/pe                                         |
+| parse PE header (5 matches)                              | load-code/pe                                         |
+| persist via Windows service (2 matches)                  | persistence/service                                  |
++----------------------------------------------------------+------------------------------------------------------+
+
