@@ -26,9 +26,9 @@
 16. Using the MSDN page for `socket` and the named symbolic constants functionality in IDA Pro, can you make the parameters more meaningful?
 17. Search for usage of the `in` instruction (opcode `0xED`). This instruction is used with a magic string `VMXh` to perform VMware detection. Is that in use in this malware? Using the cross-references to the function that executes the `in` instruction, is there further evidence of VMware detection?
 18. Jump your cursor to `0x1001D988`. What do you find?
-19. If you have the IDA Python plug-in installed, run *Lab05-01.py*, an IDA Pro Python script provided with the malware fo this book. What happens after you run the script?
-20. With the cursor in the same location, how do you turn this data into a single ASCII string?
-21. Open the script with a text editor. How does it work?
+19. If you have the IDA Python plug-in installed, run *Lab05-01.py*, an IDA Pro Python script provided with the malware fo this book. What happens after you run the script? *
+20. With the cursor in the same location, how do you turn this data into a single ASCII string? *
+21. Open the script with a text editor. How does it work? *
 
 ### Answers
 
