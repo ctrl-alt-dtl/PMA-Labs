@@ -104,7 +104,7 @@ In this function we see a call to `GetVersionExA` that does some enumeration abo
 
 Clicking on **Search All** will return a list of all addresses using that instruction. After converting the hex `0x100061C7` to ASCII we can see the result of `"VMxh"`. Using Cross-References to this function we see there are three calls that have the string `Found Virtual Machine, Install Cancel` after each call.
 
-18. I needed to use Ghidra's disassembly function here to make sense of the instructions here (IDA Free was not helpful in this case). The decompilation seemed a bit over my head and requires a bit more digging into. See attached [CAPA Output]()
+18. I needed to use Ghidra's disassembly function here to make sense of the instructions here (IDA Free was not helpful in this case). The decompilation seemed a bit over my head and requires a bit more digging into. See attached [CAPA Output](CAPAoutput.txt)
 
 19. Unable to do.
 20. Unable to do.
