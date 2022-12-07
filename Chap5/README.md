@@ -85,4 +85,27 @@ In this function we see a call to `GetVersionExA` that does some enumeration abo
 ![3-3: Function Call Tree DLLMain/ServiceMain](Images/5-1-12.png)
 
 13. Working with Ghidra or IDA Free, there is no specific label called `DllMain`; however, there is `ServiceMain` and  and this could just be a nuance between Ghidra/IDA Free vs IDA Pro. Anyway, the function calls from `DllMain` (I renamed the function myself) are shown here. They go a lot deeper with functions `10003c0d` and `10002cce`.
-14. [...]
+ 
+![3-3: Sleep](Images/5-1-13.png)
+![3-3: atoi Sleep](Images/5-1-14.png)
+
+14. At `0x10001358`and working back we'll see `3E8h` which is `1000` in decimal and that number is multiplied by `EAX`. So we have to go up to the offset which is being placed into `EAX` and we see `[This is CTI]30` string. The `0Dh` is the offset of that string which is 30. **30 x 1000 = 30,000 ms or 30 seconds.**
+
+![3-3: socket Params](Images/5-1-15.png)
+
+15. Using MSDN Docs for [socket](<https://learn.microsoft.com/en-us/windows/win32/api/winsock2/nf-winsock2-socket>) Ghidra and the *Set Equate* I renamed the socket call stack. `0x6 = IPPROTO_TCP` `0x1 = SOCK_STREAM` and `0x2 = AF_INET`.
+16. See the answer above.
+
+![3-3: 0xED](Images/5-1-16.png)
+
+17. Using Ghidra under **Search > For Instruction Patterns** and adding the `ED` bytes manually and selecting the **Hex** under **Input Mode** we can see the resulting mnemonic above.
+
+![3-3: Instruction Search](Images/5-1-17.png)
+
+Clicking on **Search All** will return a list of all addresses using that instruction. After converting the hex `0x100061C7` to ASCII we can see the result of `"VMxh"`. Using Cross-References to this function we see there are three calls that have the string `Found Virtual Machine, Install Cancel` after each call.
+
+18. I needed to use Ghidra's disassembly function here to make sense of the instructions here (IDA Free was not helpful in this case). The decompilation seemed a bit over my head and requires a bit more digging into. See attached [CAPA Output]()
+
+19. Unable to do.
+20. Unable to do.
+21. Unable to do.
