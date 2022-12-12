@@ -38,4 +38,4 @@ Looking into the disassembly and scrolling up we can see the start of the `main`
 
 ![6-1: Static Analysis](Images/6-1-4.png)
 
-It doesn't matter which branch we take in the `if` statement since we will still hit the function at `0x40105F`. And what we see there is this code, which doesn't specifically say `printf` or related library calls. However, knowing what we see in the code (e.g. pushing data on the stack) along with the results from the dynamic analysis we can easily assume that this is a `printf` function call.
+It doesn't matter which branch we take in the `if` statement since we will still hit the function at `0x40105F`. And what we see there is this code, which doesn't specifically say `printf` or related library calls. However, knowing what we see in the code (e.g. pushing data on the stack - see offsets at `0x401017` and `0x40102B`) along with the results from the dynamic analysis we can easily assume that this is a `printf` function call.
