@@ -18,8 +18,6 @@
 
 3. This program checks for a network connection. Again not a live Internet connection, but a network connection based off the network adapter/LAN status.
 
-----
-
 ## Detailed Answers
 
 ### Static Analysis
