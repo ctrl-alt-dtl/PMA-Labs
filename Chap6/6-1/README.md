@@ -9,3 +9,23 @@
 3. What is the purpose of this program?
 
 ### Answers
+
+![6-1: Finding Main](Images/6-1-1.png)
+
+1. Starting off, the entry point in *Lab 6-1* is not `main`, it is a function of `main`. So we need to work back up to `main`, which in this case was just scrolling up to `0x401000`.
+
+2. .
+
+----
+
+### Detailed Answers
+
+#### Static Analysis
+
+Opening this sample in CFF Explorer VIII, detect it easy, and [CAPA](CAPA.txt) showed some useful information like the strings and tactics/behaviors; along with the import of `WININET.dll` ([MSDN link](<https://learn.microsoft.com/en-us/windows/win32/wininet/about-wininet>)).
+
+#### Dynamic Analysis
+
+![6-1: Dynamic Analysis](Images/6-1-2.png)
+
+Running the sample first with a network connection to VMnet0 (isolated network) showed the string of `Success: Internet Connection` but when I disconnected that adapter then I received the `Error 1.1: No Internet`. Beyond that there was no immediate functionality. Nothing shown in Process Explorer. 

@@ -1,0 +1,34 @@
++------------------------+------------------------------------------------------------------------------------+
+| md5                    | 6abde2f83015f066385d27cff6143c44                                                   |
+| sha1                   | 536e6f91d4515e30af7afd37f22c213fee152126                                           |
+| sha256                 | fe30f280b1d0a5e9cef3324c2e8677f55a6202599d489170ece125f3cd843a03                   |
+| path                   | Lab06-01.exe                                                                       |
++------------------------+------------------------------------------------------------------------------------+
+
++------------------------+------------------------------------------------------------------------------------+
+| ATT&CK Tactic          | ATT&CK Technique                                                                   |
+|------------------------+------------------------------------------------------------------------------------|
+| DISCOVERY              | System Information Discovery [T1082]                                               |
+|                        | System Network Configuration Discovery [T1016]                                     |
+| EXECUTION              | Command and Scripting Interpreter [T1059]                                          |
+|                        | Shared Modules [T1129]                                                             |
++------------------------+------------------------------------------------------------------------------------+
+
++-----------------------------+-------------------------------------------------------------------------------+
+| MBC Objective               | MBC Behavior                                                                  |
+|-----------------------------+-------------------------------------------------------------------------------|
+| FILE SYSTEM                 | Write File [C0052]                                                            |
+| PROCESS                     | Terminate Process [C0018]                                                     |
++-----------------------------+-------------------------------------------------------------------------------+
+
++------------------------------------------------------+------------------------------------------------------+
+| CAPABILITY                                           | NAMESPACE                                            |
+|------------------------------------------------------+------------------------------------------------------|
+| accept command line arguments                        | host-interaction/cli                                 |
+| query environment variable (2 matches)               | host-interaction/environment-variable                |
+| write file (2 matches)                               | host-interaction/file-system/write                   |
+| get internet connection state                        | host-interaction/network/connectivity                |
+| check OS version                                     | host-interaction/os/version                          |
+| terminate process (2 matches)                        | host-interaction/process/terminate                   |
+| link function at runtime                             | linking/runtime-linking                              |
++------------------------------------------------------+------------------------------------------------------+
