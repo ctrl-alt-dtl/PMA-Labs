@@ -29,3 +29,13 @@ Opening this sample in CFF Explorer VIII, detect it easy, and [CAPA](CAPA.txt) s
 ![6-1: Dynamic Analysis](Images/6-1-2.png)
 
 Running the sample first with a network connection to VMnet0 (isolated network) showed the string of `Success: Internet Connection` but when I disconnected that adapter then I received the `Error 1.1: No Internet`. Beyond that there was no immediate functionality. Nothing shown in Process Explorer.
+
+### Advanced Static Analysis
+
+![6-1: Static Analysis](Images/6-1-3.png)
+
+Looking into the disassembly and scrolling up we can see the start of the `main` function and the single code construct right after the return from `InternetGetConnectedState`.
+
+![6-1: Static Analysis](Images/6-1-4.png)
+
+It doesn't matter which branch we take in the `if` statement since we will still hit the function at `0x40105F`. And what we see there is this code, which doesn't specifically say `printf` or related library calls. However, knowing what we see in the code (e.g. pushing data on the stack) along with the results from the dynamic analysis we can easily assume that this is a `printf` function call.
