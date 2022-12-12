@@ -1,16 +1,23 @@
 {
     "cSpell.words": [
+        "atoi",
         "CAPA",
         "decompilation",
         "decompile",
         "decompiled",
+        "dword",
         "gethostbyname",
         "gethostname",
         "Ghidra",
+        "idata",
         "keylogger",
+        "malloc",
+        "memcmp",
         "practicalmalwareanalysis",
         "Procmon",
         "sandboxed",
+        "sprintf",
+        "strlen",
         "Wireshark",
         "Womp"
     ]
