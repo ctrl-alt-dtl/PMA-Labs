@@ -18,6 +18,7 @@
         "sandboxed",
         "sprintf",
         "strlen",
+        "WININET",
         "Wireshark",
         "Womp"
     ]
