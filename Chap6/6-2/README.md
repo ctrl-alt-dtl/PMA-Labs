@@ -24,7 +24,7 @@
 
 ### Static Analysis
 
-This is exactly similar to the [Lab 6-1](/Chap6/6-1/README.md#static-analysis) sample in terms of file attributes with Imports. The [CAPA](CAPA.txt) analysis showed some additional Command and Control behaviors.
+This is exactly similar to the [Lab 6-1](/Chap6/6-1/README.md#static-analysis) sample in terms of file attributes with Imports. The [CAPA](CAPA.txt) analysis showed some additional Command and Control behaviors. The strings also show some additional success and error messages.
 
 ### Dynamic Analysis
 
