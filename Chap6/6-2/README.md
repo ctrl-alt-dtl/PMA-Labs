@@ -36,4 +36,4 @@ Running this malware dynamically was a lot more engaging, especially after the [
 
 ![6-2: Adv Static Analysis](Images/6-2-1.png)
 
-Digging into the function at `0x401040` we can see how the malware is polling a HTML page for its commands. As stated above, the malware requests a URL then reads and parses the comment section of the requested webpage.
+Digging into the function at `0x401040` we can see how the malware is polling a HTML page for its commands. As stated above, the malware requests a URL then reads and parses the comment section of the requested webpage. Then the malware then sleeps.
