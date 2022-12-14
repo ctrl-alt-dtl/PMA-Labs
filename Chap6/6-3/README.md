@@ -12,3 +12,7 @@
 6. What is the purpose of this malware?
 
 ### Answers
+
+1. The calls in Lab 6-3 are similar to [Lab 6-2](/Chap6/6-2/README.md#answers), except the new function that is called is `0x401130`. This new function is what processes the commands from the HTML comment section in `http://www.praticalmalwareanalysis.com/cc.htm`.
+2. This function takes two parameters. The first parameter is a character that comes from the HTML comment which is used in the switch statement of that function. The second parameter is the `argv[0]` program name which is used in the second case of the switch statement.
+ 
