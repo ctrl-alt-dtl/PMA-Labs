@@ -24,6 +24,16 @@
 
 ### Static Analysis
 
+This is exactly similar to the [Lab 6-1](/Chap6/6-1/README.md#static-analysis) sample in terms of file attributes with Imports. The [CAPA](CAPA.txt) analysis showed some additional Command and Control behaviors.
+
 ### Dynamic Analysis
 
+![6-2: Dynamic Analysis](Images/6-2-2.png)
+
+Running this malware dynamically was a lot more engaging, especially after the [advanced static analysis](#advanced-static-analysis). I tried to hit all errors possible using FakeNet-NG. I need to work deeper into the disassembly to find out how the parsed command is being read and how it is printed out.
+
 ### Advanced Static Analysis
+
+![6-2: Adv Static Analysis](Images/6-2-1.png)
+
+Digging into the function at `0x401040` we can see how the malware is polling a HTML page for its commands. As stated above, the malware requests a URL then reads and parses the comment section of the requested webpage.
