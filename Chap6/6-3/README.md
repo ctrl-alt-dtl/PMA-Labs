@@ -32,11 +32,11 @@ This is exactly similar to the [Lab 6-1](/Chap6/6-1/README.md#static-analysis) a
 ![6-3: Dynamic Analysis](Images/6-3-2.png)
 ![6-3: Dynamic Analysis](Images/6-3-3.png)
 
-Building off of what I did in 6-2, I tweaked the [**FakeNet-NG**](<https://www.mandiant.com/resources/blog/fakenet-ng-next-gen>) config to use a custom response which in turn hosted the `cc.htm` HTML file that had the `<!--a-->` HTML comment in it. When I would execute the malware sample, the malware would indeed create a `C:\Temp\` directory using `CreateDirectoryA`. To change the command execution and explore the other paths all I would need to do is edit the character in the HTML comment tag and save the file, then restart **FakeNet-NG** and execute the malware.
+Building off of what I did in 6-2, I tweaked the [**FakeNet-NG**](<https://www.mandiant.com/resources/blog/fakenet-ng-next-gen>) config to use a custom response which in turn hosted the `cc.htm` HTML file that had the `<!--a-->` HTML comment in it. When I would execute the malware sample, the malware would indeed create a `C:\Temp\` directory using `CreateDirectoryA`. To change the command execution and explore the other paths all I would need to do is edit the character in the HTML comment tag and save the file, then restart **FakeNet-NG** and execute the malware. 
 
 ![6-3: Dynamic Analysis](Images/6-3-6.png)
 
-Here I had the malware create the `cc.exe` file and then copies the malware code into that executable using `CopyFileA`, essentially replicating itself.
+Here I had the malware create the `cc.exe` file and then copies the malware code into that executable using `CopyFileA`, essentially replicating itself. The MD5 hash is identical to malware sample.
 
 ![6-3: Dynamic Analysis](Images/6-3-7.png)
 
