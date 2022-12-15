@@ -10,6 +10,7 @@
         "gethostname",
         "Ghidra",
         "idata",
+        "jumptable",
         "keylogger",
         "malloc",
         "memcmp",
