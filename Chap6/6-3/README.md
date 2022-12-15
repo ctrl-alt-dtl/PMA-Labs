@@ -26,4 +26,8 @@
 
 ### Dynamic Analysis
 
+![6-3: Dynamic Analysis](Images/6-3-1.png)
+![6-3: Dynamic Analysis](Images/6-3-2.png)
+![6-3: Dynamic Analysis](Images/6-3-3.png)
+
 ### Advanced Static Analysis
