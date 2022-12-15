@@ -43,6 +43,6 @@ Here I had the malware create the `cc.exe` file and then copies the malware code
 
 Pulling up Lab 6-3 in IDA we can see the graphical layout of the switch jumptable and the alternate paths in which the malware can execute based on the command received.
 
-![6-3: Adv Static Analysis](Images/6-3-5.png)
+![6-3: Adv Static Analysis](Images/6-3-4-1.png)
 
 Using Ghidra, I was able to decompile the same function to for easy reading. Ghidra, auto-completed the cases statements when I changes the first parameter in the `control_execution` function to `char`. The strings had to be cleaned up a bit in Ghidra, but only for clarity.
