@@ -12,3 +12,6 @@
 6. What is the purpose of this malware?
 
 ### Answers
+
+1. I don't see much of a difference between the two Labs other than the fact that inside `0x401040` where the malware is retrieving the command from the HTML comment, the UserAgent string appears to be dynamically generated with the `Internet Explorer 7.50/pma%d` string. Although, I do not see the digit pop up in FakeNet-NG.
+2. There is a for loop and a sleep function added. See `0x401230`.
