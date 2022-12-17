@@ -21,7 +21,7 @@
 
 ### Static Analysis
 
-This is exactly similar to the previous labs sample in terms of file attributes with Imports. The [CAPA](CAPA.txt) analysis showed some additional Command and Control behaviors as well as file and registry manipulation abilities. The strings also show some additional error messages from the previous labs.
+This is exactly similar to the previous labs sample in terms of file attributes with Imports. The [CAPA](CAPA.txt) analysis showed the same attributes as [Lab 6-3](/Chap6/6-3/README.md). The strings also show some additional error messages from the previous labs.
 
 ### Dynamic Analysis
 
