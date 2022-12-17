@@ -1,0 +1,50 @@
++------------------------+------------------------------------------------------------------------------------+
+| md5                    | 21be74dfafdacaaab1c8d836e2186a69                                                   |
+| sha1                   | 5b0afb3069346a8e00b3786af0908783a5f304b4                                           |
+| sha256                 | cce96e5cb884c565c75960c41f53a7b56cef1a3ff5b9893cd81c390fd0c35ef3                   |
+| path                   | Lab06-04.exe                                                                       |
++------------------------+------------------------------------------------------------------------------------+
+
++------------------------+------------------------------------------------------------------------------------+
+| ATT&CK Tactic          | ATT&CK Technique                                                                   |
+|------------------------+------------------------------------------------------------------------------------|
+| DISCOVERY              | System Information Discovery [T1082]                                               |
+|                        | System Network Configuration Discovery [T1016]                                     |
+| EXECUTION              | Command and Scripting Interpreter [T1059]                                          |
+|                        | Shared Modules [T1129]                                                             |
+| PERSISTENCE            | Boot or Logon Autostart Execution::Registry Run Keys / Startup Folder [T1547.001]  |
++------------------------+------------------------------------------------------------------------------------+
+
++-----------------------------+-------------------------------------------------------------------------------+
+| MBC Objective               | MBC Behavior                                                                  |
+|-----------------------------+-------------------------------------------------------------------------------|
+| COMMAND AND CONTROL         | C2 Communication::Receive Data [B0030.002]                                    |
+| COMMUNICATION               | HTTP Communication::Create Request [C0002.012]                                |
+|                             | HTTP Communication::Get Response [C0002.017]                                  |
+|                             | HTTP Communication::Open URL [C0002.004]                                      |
+| FILE SYSTEM                 | Copy File [C0045]                                                             |
+|                             | Create Directory [C0046]                                                      |
+|                             | Delete File [C0047]                                                           |
+|                             | Write File [C0052]                                                            |
+| OPERATING SYSTEM            | Registry::Create Registry Key [C0036.004]                                     |
+|                             | Registry::Open Registry Key [C0036.003]                                       |
+|                             | Registry::Set Registry Key [C0036.001]                                        |
+| PROCESS                     | Terminate Process [C0018]                                                     |
++-----------------------------+-------------------------------------------------------------------------------+
+
++------------------------------------------------------+------------------------------------------------------+
+| CAPABILITY                                           | NAMESPACE                                            |
+|------------------------------------------------------+------------------------------------------------------|
+| receive data                                         | communication                                        |
+| accept command line arguments                        | host-interaction/cli                                 |
+| query environment variable (2 matches)               | host-interaction/environment-variable                |
+| copy file                                            | host-interaction/file-system/copy                    |
+| create directory                                     | host-interaction/file-system/create                  |
+| delete file                                          | host-interaction/file-system/delete                  |
+| write file (2 matches)                               | host-interaction/file-system/write                   |
+| get internet connection state                        | host-interaction/network/connectivity                |
+| check OS version                                     | host-interaction/os/version                          |
+| terminate process (2 matches)                        | host-interaction/process/terminate                   |
+| link function at runtime                             | linking/runtime-linking                              |
+| persist via Run registry key                         | persistence/registry/run                             |
++------------------------------------------------------+------------------------------------------------------+
