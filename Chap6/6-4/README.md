@@ -28,12 +28,32 @@ This is exactly similar to the previous labs sample in terms of file attributes 
 
 ### Dynamic Analysis
 
+The basic functionality is similar to [Lab 6-3](/Chap6/6-3/README.md); however, we can see the modified directory file
+
+![6-4: Dynamic Analysis](Images/6-4-6.png) ![6-4: Dynamic Analysis](Images/6-4-7.png)
+
+This is what FakeNet-NG shows with the dynamic User Agent string.
+
+![6-4: Dynamic Analysis](Images/6-4-8.png)
+
+I had the malware create the `cc.exe` to show that it indeed worked. The `cc.exe.viv` is just an analysis of the `cc.exe` file which is indeed a copy of the malware itself. Unfortunately, once the file is created/copied, the malware quits. The only time I have had the malware continue to run is when it is deleting the file. 
+
+![6-4: Dynamic Analysis](Images/6-4-9.png)
+
+It will continue to run with `case d` (creating the Registry Key) in the switch table; however, the key will not be created.
+
 ### Advanced Static Analysis
 
 ![6-4: Advanced Static Analysis](Images/6-4-1.png)
 
-![6-4: Advanced Static Analysis](Images/6-4-2.png)
+Here we have the detailed decompiled view of the HTML webpage comment that is being downloaded and parsed. Comparing it to [Lab 6-3](/Chap6/6-3/README.md) we can see the dynamic User Agent String.
 
 ![6-4: Advanced Static Analysis](Images/6-4-3.png)
 
+![6-4: Advanced Static Analysis](Images/6-4-2.png)
+
+When the command is parsed it is then passed into this switch table which we can see the different actions this malware can take such as Create a Directory, Copy a File, Delete a File, Modifying a Registry Key, or Sleeping.
+
 ![6-4: Advanced Static Analysis](Images/6-4-4.png)
+
+Referring to question 4, here is the screenshot of the execution counter loop that keeps this malware running for 1440 minuets (24 hours).
