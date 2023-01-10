@@ -20,7 +20,7 @@
 5. The host-based indicators are the file and directory names and the attributes of the registry key.
 6. Building off of Labs 6-1 and 6-2, this malware has the additional purpose of using the value set in the HTML comment section and execute a command based on the path of the switch jumptable.
 
-## Detail Answers
+## Detailed Answers
 
 ### Static Analysis
 

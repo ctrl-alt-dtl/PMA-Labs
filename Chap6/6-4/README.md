@@ -17,9 +17,10 @@
 2. There is a for loop and a sleep function added. See `0x401230`.
 3. `0x401040` takes a parameter now and the UserAgent prints with an sprintf function with the use of the charBuffer. Although, decompilation with Ghidra does not show the parameter being used (it's probably a Ghidra thing). I'll show this in [Advanced Static Analysis](#advanced-static-analysis).
 4. This program will run 1440 minuets.
-5. Yes. Starting at `0x401052`tThere is a dynamic User-Agent string (In Ghidra) `
+5. Yes. Starting at `0x401052`tThere is a dynamic User-Agent string which is `"Internet Explorer 7.50/pma%d"` with the `%d` the current looping count.
+6. This malware sample checks for an active Internet connection (if none, then it fails). Then the program connects to a URL and uses a User Agent string to download a webpage (HTML comment within that page). That comment is parsed for a command that is then used to execute a jump table to execute a few specific actions such as creating a directory, copying a file, deleting a file, opening and modifying a registry key, or sleeping. The malware will run for 24 hours before exiting.
 
-## Detail Answers
+## Detailed Answers
 
 ### Static Analysis
 
