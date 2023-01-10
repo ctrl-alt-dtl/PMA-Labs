@@ -36,7 +36,7 @@ This is what FakeNet-NG shows with the dynamic User Agent string.
 
 ![6-4: Dynamic Analysis](Images/6-4-8.png)
 
-I had the malware create the `cc.exe` to show that it indeed worked. The `cc.exe.viv` is just an analysis of the `cc.exe` file which is indeed a copy of the malware itself. Unfortunately, once the file is created/copied, the malware quits. The only time I have had the malware continue to run is when it is deleting the file. 
+I had the malware create the `cc.exe` to show that it indeed worked. The `cc.exe.viv` is just an analysis of the `cc.exe` file which is indeed a copy of the malware itself. Unfortunately, once the file is created/copied, the malware quits. The only time I have had the malware continue to run is when it is deleting the file.
 
 ![6-4: Dynamic Analysis](Images/6-4-9.png)
 
