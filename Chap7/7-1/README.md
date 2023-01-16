@@ -28,6 +28,8 @@ The [CAPA](CAPA.txt) analysis which notices the persistence as a service and the
 
 ### Dynamic Analysis
 
+FakeNet-NG picked up the DNS Server request for `www.malwareanalysisbook.com` and I see the `Lab07-01.exe` processes in ProcessExplorer. Although I am not seeing the `MalwareService` or the `HGL345` mutex show up at all. In Regshot I see the strings being added to the Registry in ROT13. So, `P:\CZN\Ynof\Puncgre_7Y\Yno07-01.rkr` is `C:\PMA\Labs\Chapter_7L\Lab07-01.exe`. I'm not sure what is going on with this, could be a Win 7 issue.
+
 ### Advanced Static Analysis
 
 ![6-4: Advanced Static Analysis](Images/7-1-1.png)
